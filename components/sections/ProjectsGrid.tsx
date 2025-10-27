@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import { Tooltip } from "@/components/ui/tooltip";
+import { Stagger, Item } from "@/components/motion/Stagger";
 
 const projects = [
   {
@@ -69,20 +70,6 @@ const projects = [
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 function ProjectLinks({ github, live }: { github?: string; live?: string }) {
   const base = "inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur transition-transform duration-200 hover:scale-110 hover:rotate-3 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/50";
@@ -109,53 +96,48 @@ function ProjectLinks({ github, live }: { github?: string; live?: string }) {
 
 export function ProjectsGrid() {
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="grid gap-6 md:grid-cols-2"
-    >
-      {projects.map((project) => (
-        <motion.div 
-          key={project.id} 
-          variants={item}
-          whileHover={{ scale: 1.02 }}
-          className="transform transition-all duration-300"
-        >
-          <Card className="group hover:shadow-2xl transition-all duration-500 h-full flex flex-col hover:border-primary/50 border-2 overflow-hidden">
-            {project.image && (
-              <div className="relative w-full h-48 overflow-hidden bg-muted">
-                <img 
-                  src={project.image} 
-                  alt={`${project.title} screenshot`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            )}
-            <CardHeader>
-              <CardTitle className="group-hover:text-primary transition-colors text-xl mb-2">
-                {project.title}
-              </CardTitle>
-              <CardDescription className="text-sm mb-3">
-                {project.role}
-              </CardDescription>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {project.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-xs">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {project.description}
-              </p>
-            </CardHeader>
-            <CardFooter className="mt-auto">
-              <ProjectLinks github={project.githubUrl} live={project.liveUrl || undefined} />
-            </CardFooter>
-          </Card>
-        </motion.div>
+    <Stagger className="grid gap-6 md:grid-cols-2">
+      {projects.map((project, index) => (
+        <Item key={project.id} delay={index * 0.02}>
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
+          >
+            <Card className="group hover:shadow-2xl transition-all duration-500 h-full flex flex-col hover:border-primary/50 border-2 overflow-hidden">
+              {project.image && (
+                <div className="relative w-full h-48 overflow-hidden bg-muted">
+                  <img 
+                    src={project.image} 
+                    alt={`${project.title} screenshot`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              )}
+              <CardHeader>
+                <CardTitle className="group-hover:text-primary transition-colors text-xl mb-2">
+                  {project.title}
+                </CardTitle>
+                <CardDescription className="text-sm mb-3">
+                  {project.role}
+                </CardDescription>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {project.description}
+                </p>
+              </CardHeader>
+              <CardFooter className="mt-auto">
+                <ProjectLinks github={project.githubUrl} live={project.liveUrl || undefined} />
+              </CardFooter>
+            </Card>
+          </motion.div>
+        </Item>
       ))}
-    </motion.div>
+    </Stagger>
   );
 }
