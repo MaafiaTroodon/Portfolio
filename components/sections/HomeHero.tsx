@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, FolderKanban } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
@@ -75,17 +74,15 @@ export function HomeHero() {
           transition={{ delay: 0.7, duration: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link href="/projects">
-            <Button size="lg" className="group">
-              <FolderKanban className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              View Projects
-            </Button>
+          <Link href="/projects" className="btn-gradient group">
+            <span>View Projects</span>
+            <FolderKanban className="ml-2 h-5 w-5" />
           </Link>
-          <Link href="/resume">
-            <Button size="lg" variant="outline" className="group">
+          <Link href="/resume" className="px-6 py-3 text-sm font-medium text-foreground bg-background border-2 border-primary/50 rounded-lg hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group">
+            <span className="flex items-center">
               <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
               Download Resume
-            </Button>
+            </span>
           </Link>
         </motion.div>
 

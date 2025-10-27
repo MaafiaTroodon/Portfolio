@@ -1,8 +1,13 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import type Lenis from "lenis";
+import dynamic from "next/dynamic";
+
+const ThreeScene = dynamic(() => import("@/three/Scene").then((mod) => ({ default: mod.ThreeScene })), {
+  ssr: false,
+});
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -55,6 +60,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="portfolio-theme"
     >
+      {mounted && typeof window !== "undefined" && (
+        <Suspense fallback={null}>
+          <ThreeScene />
+        </Suspense>
+      )}
       {children}
     </ThemeProvider>
   );

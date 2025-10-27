@@ -4,9 +4,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const projects = [
   {
@@ -43,55 +40,44 @@ const projects = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export function ProjectsGrid() {
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
-    const ctx = gsap.context(() => {
-      if (typeof window !== "undefined") {
-        ScrollTrigger.batch(".project-card", {
-          onEnter: (elements) => {
-            gsap.from(elements, {
-              opacity: 0,
-              y: 50,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: "power2.out",
-            });
-          },
-          start: "top 85%",
-        });
-      }
-    }, gridRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div ref={gridRef} className="grid gap-6 md:grid-cols-2">
-      {projects.map((project, index) => (
-        <motion.div
-          key={project.id}
-          className="project-card"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <Card className="group hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="grid gap-6 md:grid-cols-2"
+    >
+      {projects.map((project) => (
+        <motion.div key={project.id} variants={item}>
+          <Card className="group hover:shadow-xl transition-all duration-300 h-full flex flex-col hover:border-primary/50">
             <CardHeader>
-              <CardTitle className="group-hover:text-primary transition-colors">
+              <CardTitle className="group-hover:text-primary transition-colors text-xl">
                 {project.title}
               </CardTitle>
-              <CardDescription>{project.description}</CardDescription>
+              <CardDescription className="text-base">
+                {project.description}
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex-1">
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
+                  <Badge key={tag} variant="secondary" className="text-xs">
                     {tag}
                   </Badge>
                 ))}
@@ -102,7 +88,7 @@ export function ProjectsGrid() {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent rounded-md transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent rounded-md transition-all duration-300 hover:scale-105"
               >
                 <ExternalLink className="h-4 w-4" />
                 Live
@@ -111,7 +97,7 @@ export function ProjectsGrid() {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent rounded-md transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-accent rounded-md transition-all duration-300 hover:scale-105"
               >
                 <Github className="h-4 w-4" />
                 Code
@@ -120,7 +106,6 @@ export function ProjectsGrid() {
           </Card>
         </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
-
