@@ -6,13 +6,11 @@ import { GraduationCap, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 
 const bio = `
-I'm Malhar, a software developer based in Halifax, Nova Scotia, currently pursuing a Bachelor of Computer Science at Dalhousie University while working in technology support and backend development.
+Hey, I'm Malhar, a computer science student at Dalhousie University and a developer who loves turning ideas into things that actually work. I enjoy building projects that make life a little easier (or at least a bit cooler), whether that's a clean-looking website, a smart backend system, or something that just makes people go, "Wait, you built that?"
 
-I love creating things that are useful, efficient, and genuinely help people. Whether it's a website that feels great to use or a project that solves a real-world problem, I enjoy bringing ideas to life through code.
+I'm the kind of person who learns best by doing, breaking stuff, fixing it, and figuring out how to make it better. Outside of school, you'll probably find me debugging with music blasting, brainstorming random startup ideas with friends, or working on projects that solve real-life problems in creative ways.
 
-I'm most at home working with Java and Spring Boot on the backend, but I also enjoy experimenting with React, Three.js, Tailwind CSS, and a mix of other tools to make interactive and visually engaging projects.
-
-Outside of school and work, I like learning new tech, brainstorming startup ideas, and collaborating on creative projects that push my skills a bit further each time. My goal is to keep building, keep improving, and have fun while doing it.
+At heart, I love technology because it lets me build useful things that help people, not just code for the sake of code. My goal is simple: keep learning, keep building, and have fun doing it.
 `;
 
 const education = [
@@ -37,15 +35,38 @@ const education = [
 const experience = [
   {
     role: "Classroom Technology Support",
-    company: "Dalhousie ITS",
-    duration: "Sept 2025 - Present",
-    description: "Supporting faculty and students with classroom technology solutions",
+    company: "Dalhousie University ITS – Halifax, NS",
+    duration: "September 2025 – Present",
+    logo: "/photos/dalhousieLogo1.png",
+    bullets: [
+      "Provide IT and AV support across classrooms and lecture halls, including troubleshooting computers, touchscreens, microphones, and networked systems.",
+      "Deliver quick and reliable solutions to ensure a smooth teaching experience for faculty and students.",
+      "Document procedures, track assets, and recommend workflow improvements for long-term efficiency.",
+      "Strengthened teamwork, customer service, and communication skills through on-site and hybrid collaboration."
+    ],
   },
   {
-    role: "Backend Team Lead",
-    company: "Worship",
-    duration: "May 2025 - Present",
-    description: "Leading backend development for web applications and APIs",
+    role: "Community Safety Team (CST)",
+    company: "Dalhousie Residence Services – Halifax, NS",
+    duration: "September 2025 – Present",
+    logo: "/photos/dalhousieLogo1.png",
+    bullets: [
+      "Promote a safe, inclusive, and welcoming residence environment for students living on campus.",
+      "Provide first aid and respond to incidents while maintaining adherence to safety and community protocols.",
+      "Collaborate with Residence Life staff to resolve concerns, support students, and foster positive community engagement."
+    ],
+  },
+  {
+    role: "Backend Team Lead Intern",
+    company: "Worship Streaming Platform – Remote",
+    duration: "May 2025 – Present",
+    logo: "/photos/worshiplogo.png",
+    bullets: [
+      "Lead backend development for a cloud-based streaming platform designed to connect churches with their communities.",
+      "Work in agile sprints to design and maintain scalable APIs using Java, Spring Boot, MongoDB, and AWS.",
+      "Implemented Power BI dashboards to visualize user engagement and monitor system performance.",
+      "Collaborate with cross-functional teams to ensure reliability, scalability, and smooth feature delivery."
+    ],
   },
 ];
 
@@ -150,7 +171,7 @@ export function AboutBlocks() {
           </h2>
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
           {experience.map((exp, index) => (
             <motion.div 
               key={index} 
@@ -158,18 +179,29 @@ export function AboutBlocks() {
               whileHover={{ scale: 1.02 }}
               className="transform transition-all duration-300"
             >
-              <Card className="hover:shadow-2xl transition-all duration-500 hover:border-primary/50 border-2">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <CardTitle>{exp.role}</CardTitle>
-                    <Badge variant="secondary">{exp.duration}</Badge>
+              <Card className="hover:shadow-2xl transition-all duration-500 hover:border-primary/50 border-2 h-full flex flex-col">
+                <CardHeader className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    {exp.logo && (
+                      <img 
+                        src={exp.logo} 
+                        alt={`${exp.company} Logo`}
+                        className="h-12 w-12 object-contain flex-shrink-0"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <CardTitle className="text-lg mb-1">{exp.role}</CardTitle>
+                      <CardDescription className="text-sm">{exp.company}</CardDescription>
+                    </div>
                   </div>
-                  <CardDescription className="text-base font-medium">
-                    {exp.company}
-                  </CardDescription>
+                  <Badge variant="secondary" className="w-fit text-xs">{exp.duration}</Badge>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{exp.description}</p>
+                <CardContent className="flex-1">
+                  <ul className="text-sm space-y-2 list-disc list-inside">
+                    {exp.bullets?.map((bullet, i) => (
+                      <li key={i} className="text-muted-foreground">{bullet}</li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             </motion.div>

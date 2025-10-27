@@ -76,7 +76,7 @@ export function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-3">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
