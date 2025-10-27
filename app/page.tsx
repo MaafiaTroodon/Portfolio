@@ -16,7 +16,7 @@ export default function HomePage() {
           <HomeHero />
         </section>
         
-        <section id="about" className="min-h-screen py-24 px-4">
+        <section id="about" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
               About Me
@@ -25,7 +25,7 @@ export default function HomePage() {
           </div>
         </section>
         
-        <section id="projects" className="min-h-screen py-24 px-4 bg-muted/20">
+        <section id="projects" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
               Projects
@@ -34,13 +34,13 @@ export default function HomePage() {
           </div>
         </section>
         
-        <section id="resume" className="min-h-screen py-24 px-4">
+        <section id="resume" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ResumeSection />
           </div>
         </section>
         
-        <section id="contact" className="min-h-screen py-24 px-4 bg-muted/20">
+        <section id="contact" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
               Get In Touch

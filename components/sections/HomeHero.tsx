@@ -32,7 +32,7 @@ export function HomeHero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-16"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-16 content-backdrop"
     >
       <div className="container mx-auto text-center">
         <motion.h1

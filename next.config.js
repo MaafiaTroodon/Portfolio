@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [],
+    domains: ['www.dal.ca'],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {

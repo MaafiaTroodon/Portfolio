@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Tooltip } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
@@ -70,7 +69,7 @@ export function Navbar() {
               onClick={(e) => handleNavClick(e, "#home")}
               className="group text-xl font-bold transition-all duration-300 ease-out"
             >
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent transition-all duration-300">
+              <span style={{ color: '#ADB2D4' }}>
                 Malhar
               </span>
             </a>
@@ -78,43 +77,16 @@ export function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6">
               <div className="flex items-center gap-1">
-                {navLinks.map((link) => {
-                  const isActive = activeSection === link.href.substring(1);
-                  return (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                      className={cn(
-                        "relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group",
-                        isActive
-                          ? "text-primary"
-                          : "text-foreground/70 hover:text-foreground hover:bg-accent/50"
-                      )}
-                    >
-                      <span className="relative z-10">{link.label}</span>
-                      {isActive && (
-                        <motion.span
-                          layoutId="navbar-indicator"
-                          className="absolute inset-0 bg-primary/10 rounded-lg"
-                          transition={{
-                            type: "spring",
-                            stiffness: 380,
-                            damping: 30,
-                          }}
-                        />
-                      )}
-                      <span
-                        className={cn(
-                          "absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-all duration-300 origin-center",
-                          isActive
-                            ? "bg-primary scale-x-100"
-                            : "bg-primary scale-x-0 group-hover:scale-x-100"
-                        )}
-                      />
-                    </a>
-                  );
-                })}
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="coolBeans"
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
 
               <div className="flex items-center gap-3 border-l pl-6 ml-2">
@@ -144,9 +116,6 @@ export function Navbar() {
                     <Linkedin className="h-5 w-5 transition-colors duration-300 group-hover:text-primary" />
                   </motion.a>
                 </Tooltip>
-                <div className="pl-2">
-                  <ThemeToggle />
-                </div>
               </div>
             </div>
 
@@ -223,7 +192,6 @@ export function Navbar() {
                       <Linkedin className="h-5 w-5" />
                     </motion.a>
                   </div>
-                  <ThemeToggle />
                 </div>
               </div>
             </SheetContent>

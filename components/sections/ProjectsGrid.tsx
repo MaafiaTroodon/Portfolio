@@ -64,8 +64,13 @@ export function ProjectsGrid() {
       className="grid gap-6 md:grid-cols-2"
     >
       {projects.map((project) => (
-        <motion.div key={project.id} variants={item}>
-          <Card className="group hover:shadow-xl transition-all duration-300 h-full flex flex-col hover:border-primary/50">
+        <motion.div 
+          key={project.id} 
+          variants={item}
+          whileHover={{ scale: 1.02 }}
+          className="transform transition-all duration-300"
+        >
+          <Card className="group hover:shadow-2xl transition-all duration-500 h-full flex flex-col hover:border-primary/50 border-2">
             <CardHeader>
               <CardTitle className="group-hover:text-primary transition-colors text-xl">
                 {project.title}

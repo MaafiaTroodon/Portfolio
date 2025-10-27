@@ -74,7 +74,77 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: "Rockwell", "Courier New", monospace;
     font-weight: 700;
+    color: #ADB2D4;
   }
+}
+
+/* CoolBeans button animation for navigation */
+.coolBeans {
+  border: 2px solid currentColor;
+  border-radius: 3rem;
+  color: #ADB2D4;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  overflow: hidden;
+  padding: 0.5rem 1.5rem;
+  position: relative;
+  text-decoration: none;
+  transition: 0.2s transform ease-in-out;
+  will-change: transform;
+  z-index: 0;
+  background: transparent;
+}
+
+.coolBeans::after {
+  background-color: #ADB2D4;
+  border-radius: 3rem;
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%, 0) rotate(10deg);
+  transform-origin: top left;
+  transition: 0.2s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+}
+
+.coolBeans:hover::after {
+  transform: translate(0, 0);
+}
+
+.coolBeans:hover {
+  border: 2px solid transparent;
+  color: #0f172a;
+  transform: scale(1.05);
+  will-change: transform;
+}
+
+/* Semi-transparent backdrop for better text visibility */
+.content-backdrop {
+  position: relative;
+}
+
+.content-backdrop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(1px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content-backdrop > * {
+  position: relative;
+  z-index: 1;
 }
 
 @layer utilities {
