@@ -76,20 +76,18 @@ export function AboutBlocks() {
   return (
     <div className="space-y-12">
       {/* Bio */}
-      <motion.div variants={item}>
+      <div>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center leading-relaxed">
           {bio}
         </p>
-      </motion.div>
+      </div>
 
       {/* Education */}
       <div className="space-y-6">
-        <motion.div variants={item}>
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <GraduationCap className="h-6 w-6" />
-            Education
-          </h2>
-        </motion.div>
+        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+          <GraduationCap className="h-6 w-6" />
+          Education
+        </h2>
 
         <Stagger className="grid gap-6">
           {education.map((edu, index) => (
@@ -138,19 +136,18 @@ export function AboutBlocks() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+              </motion.div>
+            </Item>
           ))}
-        </div>
+        </Stagger>
       </div>
 
       {/* Work Experience */}
       <div className="space-y-6">
-        <motion.div variants={item}>
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <Briefcase className="h-6 w-6" />
-            Work Experience
-          </h2>
-        </motion.div>
+        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+          <Briefcase className="h-6 w-6" />
+          Work Experience
+        </h2>
 
         <Stagger className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
           {experience.map((exp, index) => (
@@ -160,33 +157,34 @@ export function AboutBlocks() {
                 className="transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
               >
                 <Card className="hover:shadow-2xl transition-all duration-500 hover:border-primary/50 border-2 h-full flex flex-col">
-                <CardHeader className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    {exp.logo && (
-                      <img 
-                        src={exp.logo} 
-                        alt={`${exp.company} Logo`}
-                        className="h-12 w-12 object-contain flex-shrink-0"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <CardTitle className="text-lg mb-1">{exp.role}</CardTitle>
-                      <CardDescription className="text-sm">{exp.company}</CardDescription>
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      {exp.logo && (
+                        <img 
+                          src={exp.logo} 
+                          alt={`${exp.company} Logo`}
+                          className="h-12 w-12 object-contain flex-shrink-0"
+                        />
+                      )}
+                      <div className="flex-1">
+                        <CardTitle className="text-lg mb-1">{exp.role}</CardTitle>
+                        <CardDescription className="text-sm">{exp.company}</CardDescription>
+                      </div>
                     </div>
-                  </div>
-                  <Badge variant="secondary" className="w-fit text-xs">{exp.duration}</Badge>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  <ul className="text-sm space-y-2 list-disc list-inside">
-                    {exp.bullets?.map((bullet, i) => (
-                      <li key={i} className="text-muted-foreground">{bullet}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+                    <Badge variant="secondary" className="w-fit text-xs">{exp.duration}</Badge>
+                  </CardHeader>
+                  <CardContent className="flex-1">
+                    <ul className="text-sm space-y-2 list-disc list-inside">
+                      {exp.bullets?.map((bullet, i) => (
+                        <li key={i} className="text-muted-foreground">{bullet}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Item>
           ))}
-        </div>
+        </Stagger>
       </div>
     </div>
   );
