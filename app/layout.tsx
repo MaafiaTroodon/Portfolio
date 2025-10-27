@@ -38,7 +38,27 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
-          <Toaster position="bottom-right" richColors />
+          <Toaster 
+            position="bottom-right" 
+            richColors 
+            toastOptions={{
+              style: {
+                color: '#ffffff',
+              },
+              error: {
+                style: {
+                  backgroundColor: '#ef4444',
+                  color: '#ffffff',
+                },
+              },
+              success: {
+                style: {
+                  backgroundColor: '#10b981',
+                  color: '#ffffff',
+                },
+              },
+            }}
+          />
         </Providers>
       </body>
     </html>

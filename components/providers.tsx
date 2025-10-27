@@ -1,13 +1,11 @@
 "use client";
 
-import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
-import type Lenis from "lenis";
 import { VantaRings } from "@/components/three/VantaRings";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  const lenisRef = useRef<Lenis | null>(null);
+  const lenisRef = useRef<any>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -18,7 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       
       lenisRef.current = new Lenis({
         duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical" as const,
         gestureOrientation: "vertical" as const,
         smoothWheel: true,
@@ -50,15 +48,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="dark"
-      enableSystem={false}
-      storageKey="portfolio-theme"
-    >
+    <>
       {typeof window !== "undefined" && <VantaRings />}
       {children}
-    </ThemeProvider>
+    </>
   );
 }
 
