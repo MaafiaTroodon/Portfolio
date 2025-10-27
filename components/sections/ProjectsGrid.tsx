@@ -4,7 +4,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
 
 const projects = [
   {
@@ -35,7 +35,7 @@ const projects = [
     tags: ["Unity 2022 LTS", "C#", "Rigidbody physics", "URP/HDRP"],
     liveUrl: "https://maafiatroodon.itch.io/urban-swat-platformer",
     githubUrl: "https://github.com/MaafiaTroodon/UrbanSWAT-Platformer",
-    image: "/photos/game scene 1.png",
+    image: "/photos/game%20scene%201.png",
   },
   {
     id: 4,
@@ -90,28 +90,18 @@ function ProjectLinks({ github, live }: { github?: string; live?: string }) {
   return (
     <div className="flex gap-3">
       {github && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a href={github} target="_blank" rel="noopener noreferrer" className={base} aria-label="View GitHub">
-                <Github className="h-5 w-5" />
-              </a>
-            </TooltipTrigger>
-            <TooltipContent>View GitHub</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip content="View GitHub">
+          <a href={github} target="_blank" rel="noopener noreferrer" className={base} aria-label="View GitHub">
+            <Github className="h-5 w-5" />
+          </a>
+        </Tooltip>
       )}
       {live && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a href={live} target="_blank" rel="noopener noreferrer" className={base} aria-label="Open Live Demo">
-                <ExternalLink className="h-5 w-5" />
-              </a>
-            </TooltipTrigger>
-            <TooltipContent>Open Live Demo</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip content="Open Live Demo">
+          <a href={live} target="_blank" rel="noopener noreferrer" className={base} aria-label="Open Live Demo">
+            <ExternalLink className="h-5 w-5" />
+          </a>
+        </Tooltip>
       )}
     </div>
   );
