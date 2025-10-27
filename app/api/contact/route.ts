@@ -11,6 +11,7 @@ const schema = z.object({
   subject: z.string().min(2).max(200),
   message: z.string().min(5).max(5000),
   honeypot: z.string().optional(),
+  website: z.string().optional(),
 });
 
 function escapeHtml(str: string) {
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     }
 
     // Honeypot trap — if filled, treat as spam and pretend success
-    if (parsed.data.honeypot) return NextResponse.json({ ok: true });
+    if (parsed.data.honeypot || parsed.data.website) return NextResponse.json({ ok: true });
 
     const { name, email, subject, message } = parsed.data;
 

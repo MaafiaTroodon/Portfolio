@@ -27,12 +27,13 @@ export function ContactForm() {
       subject: "",
       message: "",
       honeypot: "",
+      website: "",
     },
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Honeypot check
-    if (data.honeypot) {
+    // Honeypot checks
+    if (data.honeypot || data.website) {
       toast.error("Spam detected!");
       return;
     }
@@ -42,7 +43,7 @@ export function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, website: "" }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -67,8 +68,9 @@ export function ContactForm() {
       className="max-w-2xl mx-auto"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Honeypot field - hidden from users */}
+        {/* Honeypot fields - hidden from users */}
         <input type="text" {...register("honeypot")} className="hidden" tabIndex={-1} autoComplete="off" />
+        <input type="text" {...register("website")} className="hidden" tabIndex={-1} autoComplete="off" />
 
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -88,6 +90,7 @@ export function ContactForm() {
             {...register("email")}
             placeholder="your.email@example.com"
             aria-invalid={!!errors.email}
+            autoComplete="email"
           />
           {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
         </div>
