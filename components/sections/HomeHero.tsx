@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, Download, FolderKanban } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
@@ -38,7 +37,7 @@ export function HomeHero() {
       <div className="container mx-auto text-center">
         <motion.h1
           ref={titleRef}
-          className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent"
+          className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent"
         >
           Malhar Datta Mahajan
         </motion.h1>
@@ -74,16 +73,16 @@ export function HomeHero() {
           transition={{ delay: 0.7, duration: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link href="/projects" className="btn-gradient group">
+          <a href="#projects" onClick={(e) => { e.preventDefault(); document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }); }} className="btn-gradient group">
             <span>View Projects</span>
             <FolderKanban className="ml-2 h-5 w-5" />
-          </Link>
-          <Link href="/resume" className="px-6 py-3 text-sm font-medium text-foreground bg-background border-2 border-primary/50 rounded-lg hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group">
+          </a>
+          <a href="#resume" onClick={(e) => { e.preventDefault(); document.getElementById("resume")?.scrollIntoView({ behavior: "smooth" }); }} className="px-6 py-3 text-sm font-medium text-foreground bg-background border-2 border-primary/50 rounded-lg hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group">
             <span className="flex items-center">
               <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
               Download Resume
             </span>
-          </Link>
+          </a>
         </motion.div>
 
         <motion.button

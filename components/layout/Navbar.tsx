@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Github, Linkedin, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
@@ -11,25 +9,48 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/resume", label: "Resume" },
-  { href: "/contact", label: "Contact" },
+  { href: "#home", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#resume", label: "Resume" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Update active section based on scroll position
+      const sections = ["home", "about", "projects", "resume", "contact"];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -44,24 +65,26 @@ export function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link
-              href="/"
+            <a
+              href="#home"
+              onClick={(e) => handleNavClick(e, "#home")}
               className="group text-xl font-bold transition-all duration-300 ease-out"
             >
-              <span className="bg-gradient-to-r from-primary via-purple-500 to-primary bg-clip-text text-transparent transition-all duration-300 group-hover:from-primary group-hover:via-pink-500 group-hover:to-primary">
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent transition-all duration-300">
                 Malhar
               </span>
-            </Link>
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6">
               <div className="flex items-center gap-1">
                 {navLinks.map((link) => {
-                  const isActive = pathname === link.href;
+                  const isActive = activeSection === link.href.substring(1);
                   return (
-                    <Link
+                    <a
                       key={link.href}
                       href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
                       className={cn(
                         "relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group",
                         isActive
@@ -89,7 +112,7 @@ export function Navbar() {
                             : "bg-primary scale-x-0 group-hover:scale-x-100"
                         )}
                       />
-                    </Link>
+                    </a>
                   );
                 })}
               </div>
@@ -152,7 +175,7 @@ export function Navbar() {
               </SheetHeader>
               <div className="flex flex-col space-y-2 mt-8">
                 {navLinks.map((link, index) => {
-                  const isActive = pathname === link.href;
+                  const isActive = activeSection === link.href.substring(1);
                   return (
                     <motion.div
                       key={link.href}
@@ -160,9 +183,9 @@ export function Navbar() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      <Link
+                      <a
                         href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={(e) => handleNavClick(e, link.href)}
                         className={cn(
                           "block px-4 py-3 rounded-lg text-lg font-medium transition-all duration-300",
                           isActive
@@ -171,7 +194,7 @@ export function Navbar() {
                         )}
                       >
                         {link.label}
-                      </Link>
+                      </a>
                     </motion.div>
                   );
                 })}

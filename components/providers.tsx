@@ -3,6 +3,7 @@
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import type Lenis from "lenis";
+import { VantaRings } from "@/components/three/VantaRings";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -55,6 +56,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="portfolio-theme"
     >
+      {typeof window !== "undefined" && <VantaRings />}
       {children}
     </ThemeProvider>
   );

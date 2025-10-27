@@ -4,9 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const bio = `
 I'm a software developer based in Halifax, Nova Scotia, currently pursuing my studies 
@@ -38,43 +35,31 @@ const experience = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export function AboutBlocks() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
-    const ctx = gsap.context(() => {
-      if (typeof window !== "undefined") {
-        ScrollTrigger.batch(".animate-in-view", {
-          onEnter: (elements) => {
-            gsap.from(elements, {
-              opacity: 0,
-              y: 50,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: "power2.out",
-            });
-          },
-          start: "top 80%",
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div ref={sectionRef} className="space-y-12">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="space-y-12"
+    >
       {/* Bio */}
-      <motion.div
-        className="animate-in-view"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
+      <motion.div variants={item}>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center leading-relaxed">
           {bio}
         </p>
@@ -82,12 +67,7 @@ export function AboutBlocks() {
 
       {/* Education */}
       <div className="space-y-6">
-        <motion.div
-          className="animate-in-view"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
+        <motion.div variants={item}>
           <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
             <GraduationCap className="h-6 w-6" />
             Education
@@ -96,20 +76,16 @@ export function AboutBlocks() {
 
         <div className="grid gap-6 md:grid-cols-2">
           {education.map((edu, index) => (
-            <motion.div
-              key={index}
-              className="animate-in-view"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.1 }}
-            >
+            <motion.div key={index} variants={item}>
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle>{edu.institution}</CardTitle>
                     <Badge variant="secondary">{edu.duration}</Badge>
                   </div>
-                  <CardDescription className="text-base font-medium">{edu.degree}</CardDescription>
+                  <CardDescription className="text-base font-medium">
+                    {edu.degree}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">{edu.description}</p>
@@ -122,12 +98,7 @@ export function AboutBlocks() {
 
       {/* Work Experience */}
       <div className="space-y-6">
-        <motion.div
-          className="animate-in-view"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
+        <motion.div variants={item}>
           <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
             <Briefcase className="h-6 w-6" />
             Work Experience
@@ -136,20 +107,16 @@ export function AboutBlocks() {
 
         <div className="grid gap-6 md:grid-cols-2">
           {experience.map((exp, index) => (
-            <motion.div
-              key={index}
-              className="animate-in-view"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + index * 0.1 }}
-            >
+            <motion.div key={index} variants={item}>
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle>{exp.role}</CardTitle>
                     <Badge variant="secondary">{exp.duration}</Badge>
                   </div>
-                  <CardDescription className="text-base font-medium">{exp.company}</CardDescription>
+                  <CardDescription className="text-base font-medium">
+                    {exp.company}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">{exp.description}</p>
@@ -159,7 +126,6 @@ export function AboutBlocks() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
-
