@@ -1,47 +1,75 @@
-import { NextRequest, NextResponse } from "next/server";
-import { contactSchema } from "@/lib/schemas";
+export const runtime = "edge";
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import { neon } from "@neondatabase/serverless";
+import { Resend } from "resend";
 
-    // Validate the request body
-    const validationResult = contactSchema.safeParse(body);
+const schema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email().max(200),
+  subject: z.string().min(2).max(200),
+  message: z.string().min(5).max(5000),
+  honeypot: z.string().optional(),
+});
 
-    if (!validationResult.success) {
-      return NextResponse.json(
-        { error: "Validation failed", details: validationResult.error.flatten() },
-        { status: 400 }
-      );
-    }
-
-    const data = validationResult.data;
-
-    // Check honeypot
-    if (data.honeypot && data.honeypot.length > 0) {
-      return NextResponse.json({ error: "Spam detected" }, { status: 400 });
-    }
-
-    // Log the submission (for now)
-    console.log("Contact form submission:", {
-      name: data.name,
-      email: data.email,
-      subject: data.subject,
-      message: data.message,
-      timestamp: new Date().toISOString(),
-    });
-
-    // TODO: Add rate limiting here
-    // TODO: Connect to Resend or email service
-    // TODO: Optionally save to database (Neon Postgres example commented in /lib/mail.ts)
-
-    // Example: Uncomment to send email
-    // await sendContactEmail(data);
-
-    return NextResponse.json({ ok: true, message: "Message received successfully" });
-  } catch (error) {
-    console.error("Error processing contact form:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-  }
+function escapeHtml(str: string) {
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const parsed = schema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ ok: false, error: "Invalid input" }, { status: 400 });
+    }
+
+    // Honeypot trap — if filled, treat as spam and pretend success
+    if (parsed.data.honeypot) return NextResponse.json({ ok: true });
+
+    const { name, email, subject, message } = parsed.data;
+
+    const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0] || null;
+    const ua = req.headers.get("user-agent") || null;
+
+    // Store in Neon
+    const sql = neon(process.env.DATABASE_URL!);
+    await sql`
+      INSERT INTO contact_messages (name, email, subject, message, ip, user_agent)
+      VALUES (${name}, ${email}, ${subject}, ${message}, ${ip}, ${ua});
+    `;
+
+    // Send email via Resend
+    const resend = new Resend(process.env.RESEND_API_KEY!);
+    const html = `
+      <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6">
+        <h2 style="margin:0 0 8px">New contact form submission</h2>
+        <p><b>Name:</b> ${escapeHtml(name)}</p>
+        <p><b>Email:</b> ${escapeHtml(email)}</p>
+        <p><b>Subject:</b> ${escapeHtml(subject)}</p>
+        <p><b>Message:</b><br>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
+        <hr/>
+        <p style="color:#666"><small>IP: ${ip ?? "-"} | UA: ${ua ?? "-"}</small></p>
+      </div>
+    `;
+
+    await resend.emails.send({
+      from: process.env.EMAIL_FROM!,
+      to: process.env.EMAIL_TO!,
+      subject: `Contact: ${subject} — ${name}`,
+      reply_to: email,
+      html,
+    });
+
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+  }
+}
