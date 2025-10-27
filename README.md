@@ -2,42 +2,38 @@
 
 A production-quality personal portfolio website built with Next.js 15, TypeScript, and modern web technologies.
 
+🌐 **Live Site**: [https://portfoliomalhar.netlify.app/](https://portfoliomalhar.netlify.app/)
+
 ## 🚀 Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
-- **Theme**: next-themes (dark mode default)
-- **Animations**: Framer Motion, GSAP ScrollTrigger
+- **Animations**: Framer Motion + ScrollTrigger
 - **Smooth Scrolling**: Lenis
-- **3D**: Three.js (react-three-fiber)
+- **Background**: Vanta.js Rings
 - **Forms**: React Hook Form + Zod
 - **Notifications**: Sonner
+- **Database**: Neon Postgres
+- **Email**: Resend
+- **Deployment**: Netlify
 
 ## 📁 Project Structure
 
 ```
 /app
-  /(site)
-    /page.tsx           # Home
-    /about/page.tsx     # About
-    /projects/page.tsx  # Projects
-    /resume/page.tsx    # Resume
-    /contact/page.tsx   # Contact
-  /api/contact/route.ts # Contact API
+  /page.tsx             # Single-page application (Home, About, Projects, Resume, Contact)
+  /api/contact/route.ts # Contact API with Neon Postgres + Resend
 /components
-  /ui/*                 # shadcn components
+  /ui/*                 # shadcn components (Button, Card, Input, etc.)
   /layout/*             # Navbar, Footer
-  /sections/*           # Page sections
-  /shared/*             # Shared components
-/three
-  /Scene.tsx            # Three.js scene
-  /effects/*            # 3D effects
+  /sections/*           # HomeHero, AboutBlocks, ProjectsGrid, ResumeSection, ContactForm
+  /motion/*             # Reveal, Stagger - scroll animations
+  /three/*              # VantaRings - animated background
 /lib
   /utils.ts             # Utilities
   /schemas.ts           # Zod schemas
-  /mail.ts              # Email integration
 ```
 
 ## 🛠️ Setup
@@ -72,58 +68,67 @@ pnpm type-check
 pnpm test
 ```
 
-The development server will start at `http://localhost:3000`
+The development server will start at `http://localhost:3500` (or custom port specified)
 
 ## 🌐 Deployment
 
-### Vercel (Recommended)
+### Netlify (Current)
 
-1. Push to GitHub
-2. Import project in [Vercel](https://vercel.com)
-3. Deploy
+✅ **Live Deployment**: [https://portfoliomalhar.netlify.app/](https://portfoliomalhar.netlify.app/)
 
-The project is configured for Vercel deployment with:
-- Automatic builds
-- Preview deployments
-- Edge runtime support
+The project is deployed on Netlify with:
+- Automatic deployments from GitHub main branch
+- Edge runtime support for API routes
+- Environment variables configured
 
 ### Environment Variables
 
-Add these to your Vercel project settings:
+Add these to your Netlify project settings:
 
 ```env
-# Optional: For email functionality (see /lib/mail.ts)
-RESEND_API_KEY=your_api_key_here
+# Neon Postgres Database
+DATABASE_URL=your_neon_postgres_url
 
-# Optional: For database (see commented examples in /lib/mail.ts)
-DATABASE_URL=your_database_url_here
+# Resend Email Service
+RESEND_API_KEY=your_resend_api_key
+
+# Email Configuration
+EMAIL_FROM=Your Name <onboarding@resend.dev>
+EMAIL_TO=your-email@example.com
+
+# Node Version
+NODE_VERSION=20
 ```
+
+**Note**: Before deploying, create the database table by running the SQL in `database-setup.sql` in your Neon SQL console.
 
 ## 🎨 Features
 
-- **Dark Mode**: Default theme with light mode toggle
-- **Smooth Animations**: Framer Motion + GSAP ScrollTrigger
-- **3D Background**: Three.js particle system
-- **Responsive**: Mobile-first design
+- **Single-Page Application**: Smooth scroll navigation between sections
+- **Animated Background**: Vanta.js Rings effect with royal color scheme
+- **Smooth Scrolling**: Lenis for buttery smooth page transitions
+- **Scroll Animations**: Framer Motion reveal effects on sections
+- **Responsive**: Mobile-first design with Tailwind CSS
 - **Accessible**: ARIA labels, keyboard navigation, focus management
-- **Fast**: Optimized images, lazy loading, code splitting
-- **Command Palette**: ⌘K / Ctrl+K for quick navigation
+- **Contact Form**: Integrated with Neon Postgres + Resend email
+- **Live Resume Viewer**: Inline PDF viewer with download option
+- **Performance**: Optimized images, lazy loading, code splitting
 
 ## 📝 Contact Form
 
-The contact form (`/contact`) includes:
-- Client & server-side validation
-- Honeypot spam protection
-- Rate limiting placeholder
-- Success/error notifications
+The contact form (integrated in the Contact section) includes:
+- ✅ Client & server-side validation with Zod
+- ✅ Honeypot spam protection
+- ✅ Database storage in Neon Postgres
+- ✅ Email notifications via Resend
+- ✅ Success/error toast notifications with custom styling
 
-### Email Integration
-
-To enable email sending:
+### Setup
 
 1. Get API key from [Resend](https://resend.com)
-2. Add `RESEND_API_KEY` to environment variables
-3. Uncomment email code in `/lib/mail.ts`
+2. Create database table using `database-setup.sql`
+3. Add environment variables to Netlify
+4. Submit the form to test!
 
 ## 🧪 Testing
 
