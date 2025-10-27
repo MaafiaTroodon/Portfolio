@@ -19,16 +19,6 @@ const projects = [
   },
   {
     id: 2,
-    title: "Apple Website Clone — 3D Product Showcase",
-    role: "Frontend Developer • Feb 2025 – Mar 2025",
-    description: "A polished, iPhone-15-inspired product site with 3D device models, section reveals, and smooth scroll choreography. Built lightweight model viewers, page micro-interactions, and performance-friendly animations.",
-    tags: ["React", "Three.js (R3F)", "GSAP", "Tailwind", "Vite"],
-    liveUrl: "https://malhar999clone.netlify.app/",
-    githubUrl: "https://github.com/MaafiaTroodon/Apple_Website_Clone",
-    image: "/photos/appleClone.png",
-  },
-  {
-    id: 3,
     title: "Urban SWAT Platformer — 3D Action Game",
     role: "Game Designer & Developer",
     description: "A third-person action-platformer where a SWAT operative battles vampires across multi-level arenas with moving platforms and checkpoints. Implemented enemy AI, health/lives HUD, camera follow, and portal-gated progression.",
@@ -38,6 +28,16 @@ const projects = [
     image: "/photos/game%20scene%201.png",
   },
   {
+    id: 3,
+    title: "Apple Website Clone — 3D Product Showcase",
+    role: "Frontend Developer • Feb 2025 – Mar 2025",
+    description: "A polished, iPhone-15-inspired product site with 3D device models, section reveals, and smooth scroll choreography. Built lightweight model viewers, page micro-interactions, and performance-friendly animations.",
+    tags: ["React", "Three.js (R3F)", "GSAP", "Tailwind", "Vite"],
+    liveUrl: "https://malhar999clone.netlify.app/",
+    githubUrl: "https://github.com/MaafiaTroodon/Apple_Website_Clone",
+    image: "/photos/appleClone.png",
+  },
+  {
     id: 4,
     title: "Chem-AR — Molecular AR Viewer",
     role: "Junior Software Developer (React/WebXR) • Sept 2024 – Dec 2024",
@@ -45,7 +45,7 @@ const projects = [
     tags: ["Node.js", "Express", "Three.js", "AR.js/WebXR", "Supabase"],
     liveUrl: "https://chem-ar-production.up.railway.app/",
     githubUrl: "https://github.com/MaafiaTroodon/chem-ar",
-    image: "/photos/storedetails.png",
+    image: "/photos/chemar.png",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const projects = [
     tags: ["React.js", "Express.js", "CSS3", "HTML5", "Netlify"],
     liveUrl: "https://fancy-lollipop-fcb73b.netlify.app/",
     githubUrl: "https://github.com/MaafiaTroodon/interactive-portfolio",
-    image: "/photos/flexbeats.png",
+    image: "/photos/interactiveportfolio.png",
   },
 ];
 
