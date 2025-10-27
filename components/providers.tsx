@@ -1,10 +1,19 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { useEffect, useRef } from "react";
-import Lenis from "lenis";
-import { ThreeScene } from "@/three/Scene";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type Lenis from "lenis";
+import { ClientOnly } from "./ClientOnly";
+import dynamic from "next/dynamic";
+
+// Only load Three.js on client side
+const ThreeScene = dynamic(
+  () => import("@/three/Scene").then((mod) => ({ default: mod.ThreeScene })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -12,36 +21,39 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Dynamic import for Lenis to avoid SSR issues
+    import("lenis").then((LenisModule) => {
+      const Lenis = LenisModule.default;
+      
+      lenisRef.current = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical" as const,
+        gestureOrientation: "vertical" as const,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        infinite: false,
+      });
+
+      function raf(time: number) {
+        if (lenisRef.current) {
+          lenisRef.current.raf(time);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    });
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-
-    lenisRef.current = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical" as const,
-      gestureOrientation: "vertical" as const,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      infinite: false,
-    });
-
-    function raf(time: number) {
-      if (lenisRef.current) {
-        lenisRef.current.raf(time);
-      }
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
     return () => {
       if (lenisRef.current) {
         lenisRef.current.destroy();
       }
     };
-  }, [mounted]);
+  }, []);
 
   if (!mounted) {
     return <>{children}</>;
@@ -54,7 +66,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="portfolio-theme"
     >
-      {typeof window !== "undefined" && <ThreeScene />}
+      <ClientOnly>
+        <ThreeScene />
+      </ClientOnly>
       {children}
     </ThemeProvider>
   );
