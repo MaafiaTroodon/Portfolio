@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       from: process.env.EMAIL_FROM!,
       to: process.env.EMAIL_TO!,
       subject: `Contact: ${subject} — ${name}`,
-      reply_to: email,
+      replyTo: email,
       html,
     });
 
