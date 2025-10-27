@@ -1,17 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 
 const bio = `
-I am a software developer based in Halifax, Nova Scotia, currently pursuing a Bachelor of Computer Science at Dalhousie University while working in technology support and backend development.
+I'm Malhar, a software developer based in Halifax, Nova Scotia, currently pursuing a Bachelor of Computer Science at Dalhousie University while working in technology support and backend development.
 
-My work focuses on building modern, responsive web applications with attention to user experience and system performance. I specialize in backend development using Java and Spring Boot, and have experience with React, Three.js, Tailwind CSS, SQL, and MongoDB.
+I love creating things that are useful, efficient, and genuinely help people. Whether it's a website that feels great to use or a project that solves a real-world problem, I enjoy bringing ideas to life through code.
 
-With a background in IT support and academic projects, I bring a strong understanding of networking, cybersecurity, and system troubleshooting. I aim to create reliable, efficient, and thoughtfully designed software solutions that align with both user needs and technical best practices.
+I'm most at home working with Java and Spring Boot on the backend, but I also enjoy experimenting with React, Three.js, Tailwind CSS, and a mix of other tools to make interactive and visually engaging projects.
+
+Outside of school and work, I like learning new tech, brainstorming startup ideas, and collaborating on creative projects that push my skills a bit further each time. My goal is to keep building, keep improving, and have fun while doing it.
 `;
 
 const education = [
@@ -20,7 +21,7 @@ const education = [
     location: "Halifax, Nova Scotia, Canada",
     degree: "Bachelor of Computer Science (Co-op)",
     duration: "Expected Graduation: Winter 2027",
-    logo: "https://www.dal.ca/etc/designs/dalhousie/clientlibs/images/shield.svg",
+    logo: "/photos/dalhousieLogo1.png",
     highlights: [
       "Coursework in Software Engineering, Cybersecurity & Defence Systems, and Game Design & Development",
       "Core studies in Operating Systems, Networks and Communications, and Database Management",
@@ -100,12 +101,10 @@ export function AboutBlocks() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-4">
                       {edu.logo && (
-                        <Image 
+                        <img 
                           src={edu.logo} 
                           alt={`${edu.institution} Logo`}
-                          width={64}
-                          height={64}
-                          className="object-contain"
+                          className="h-16 w-16 object-contain"
                         />
                       )}
                       <div>

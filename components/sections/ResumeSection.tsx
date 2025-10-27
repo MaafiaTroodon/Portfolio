@@ -17,7 +17,7 @@ export function ResumeSection() {
       transition={{ duration: 0.6 }}
       className="text-center"
     >
-      <h2 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
+      <h2 className="text-5xl md:text-6xl font-bold mb-8">
         Resume
       </h2>
       <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">

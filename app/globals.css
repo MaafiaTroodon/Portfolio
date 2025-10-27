@@ -66,15 +66,20 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
     font-family: "Poppins", var(--font-poppins), sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    color: #f4e4c2;
+  }
+
+  p, span, div, a, li {
+    color: #f4e4c2;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: "Rockwell", "Courier New", monospace;
     font-weight: 700;
-    color: #ADB2D4;
+    color: #f4e4c2;
   }
 }
 

@@ -37,7 +37,8 @@ export function HomeHero() {
       <div className="container mx-auto text-center">
         <motion.h1
           ref={titleRef}
-          className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent"
+          className="text-5xl md:text-7xl font-bold mb-6"
+          style={{ color: '#f4e4c2' }}
         >
           Malhar Datta Mahajan
         </motion.h1>

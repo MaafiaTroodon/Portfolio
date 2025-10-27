@@ -69,7 +69,7 @@ export function Navbar() {
               onClick={(e) => handleNavClick(e, "#home")}
               className="group text-xl font-bold transition-all duration-300 ease-out"
             >
-              <span style={{ color: '#ADB2D4' }}>
+              <span style={{ color: '#f4e4c2' }}>
                 Malhar
               </span>
             </a>

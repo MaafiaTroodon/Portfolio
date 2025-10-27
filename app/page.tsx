@@ -18,7 +18,7 @@ export default function HomePage() {
         
         <section id="about" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center">
               About Me
             </h2>
             <AboutBlocks />
@@ -27,7 +27,7 @@ export default function HomePage() {
         
         <section id="projects" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center">
               Projects
             </h2>
             <ProjectsGrid />
@@ -42,7 +42,7 @@ export default function HomePage() {
         
         <section id="contact" className="min-h-screen py-24 px-4 content-backdrop">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent">
+            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center">
               Get In Touch
             </h2>
             <ContactForm />
