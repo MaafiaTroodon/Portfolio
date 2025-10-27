@@ -39,12 +39,17 @@ export async function POST(req: Request) {
     const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0] || null;
     const ua = req.headers.get("user-agent") || null;
 
-    // Store in Neon
-    const sql = neon(process.env.DATABASE_URL!);
-    await sql`
-      INSERT INTO contact_messages (name, email, subject, message, ip, user_agent)
-      VALUES (${name}, ${email}, ${subject}, ${message}, ${ip}, ${ua});
-    `;
+    // Try to store in Neon (table may not exist yet)
+    try {
+      const sql = neon(process.env.DATABASE_URL!);
+      await sql`
+        INSERT INTO contact_messages (name, email, subject, message, ip, user_agent)
+        VALUES (${name}, ${email}, ${subject}, ${message}, ${ip}, ${ua});
+      `;
+    } catch (dbError: any) {
+      console.warn("Database error (table may not exist):", dbError.message);
+      // Continue to send email even if DB fails
+    }
 
     // Send email via Resend
     const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -69,8 +74,8 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (e) {
-    console.error(e);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+  } catch (e: any) {
+    console.error("Contact API error:", e);
+    return NextResponse.json({ ok: false, error: e.message || "Server error. Please check server logs." }, { status: 500 });
   }
 }

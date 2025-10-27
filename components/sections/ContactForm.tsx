@@ -47,14 +47,21 @@ export function ContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const errorData = await response.json().catch(() => ({ error: "Failed to send message" }));
+        throw new Error(errorData.error || "Failed to send message");
       }
 
-      toast.success("Message sent successfully! I'll get back to you soon.");
-      reset();
+      const result = await response.json();
+      if (result.ok) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        reset();
+      } else {
+        throw new Error(result.error || "Failed to send message");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to send message. Please try again.");
+      const errorMessage = error instanceof Error ? error.message : "Failed to send message. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
