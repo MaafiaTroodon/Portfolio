@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GitHub, Linkedin, Menu, X } from "lucide-react";
+import { Github, Linkedin, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -81,7 +81,7 @@ export function Navbar() {
                     className="p-2 hover:bg-accent rounded-md transition-colors"
                     aria-label="GitHub"
                   >
-                    <GitHub className="h-5 w-5" />
+                    <Github className="h-5 w-5" />
                   </a>
                 </Tooltip>
                 <Tooltip content="LinkedIn">
@@ -144,7 +144,7 @@ export function Navbar() {
                   className="p-2 hover:bg-accent rounded-md"
                   aria-label="GitHub"
                 >
-                  <GitHub className="h-5 w-5" />
+                  <Github className="h-5 w-5" />
                 </a>
                 <a
                   href="https://linkedin.com/in/malhar-mahajan-24a93214a"

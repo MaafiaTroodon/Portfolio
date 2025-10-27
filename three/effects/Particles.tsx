@@ -2,21 +2,20 @@
 
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
-import { Point } from "@react-three/drei";
+import type { Points } from "three";
 
 const COUNT = 1500;
 const RADIUS = 8;
 
 export function Particles() {
-  const meshRef = useRef<THREE.Points>(null);
+  const meshRef = useRef<Points>(null);
 
-  const { positions } = useMemo(() => {
+  const positions = useMemo(() => {
     const positions = new Float32Array(COUNT * 3);
     for (let i = 0; i < COUNT * 3; i++) {
       positions[i] = (Math.random() - 0.5) * RADIUS * 2;
     }
-    return { positions };
+    return positions;
   }, []);
 
   useFrame((state) => {

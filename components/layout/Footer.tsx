@@ -1,4 +1,4 @@
-import { GitHub, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -21,7 +21,7 @@ export function Footer() {
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="GitHub"
             >
-              <GitHub className="h-5 w-5" />
+              <Github className="h-5 w-5" />
             </a>
             <a
               href="https://linkedin.com/in/malhar-mahajan-24a93214a"

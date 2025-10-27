@@ -3,7 +3,6 @@
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { Particles } from "./effects/Particles";
-import * as THREE from "three";
 
 export function ThreeScene() {
   const [mounted, setMounted] = useState(false);
@@ -12,7 +11,7 @@ export function ThreeScene() {
     setMounted(true);
   }, []);
 
-  if (typeof window === "undefined" || !mounted) return null;
+  if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">

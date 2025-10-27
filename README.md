@@ -67,7 +67,12 @@ pnpm lint
 
 # Type check
 pnpm type-check
+
+# Run tests
+pnpm test
 ```
+
+The development server will start at `http://localhost:3000`
 
 ## 🌐 Deployment
 

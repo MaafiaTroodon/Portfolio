@@ -31,13 +31,6 @@ export function HomeHero() {
     return () => ctx.revert();
   }, []);
 
-  const scrollToProjects = () => {
-    const element = document.getElementById("projects");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       ref={heroRef}
@@ -66,7 +59,7 @@ export function HomeHero() {
           transition={{ delay: 0.5, duration: 0.6 }}
           className="flex flex-wrap items-center justify-center gap-3 mb-12"
         >
-          {skills.map((skill, index) => (
+          {skills.map((skill) => (
             <span
               key={skill}
               className="skill-chip px-4 py-2 rounded-full bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
