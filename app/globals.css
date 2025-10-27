@@ -270,3 +270,14 @@ nav {
 .btn-gradient:hover svg {
   transform: translateX(4px);
 }
+
+/* Sonner Toast Notifications */
+[data-sonner-toast][data-type="error"] {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+}

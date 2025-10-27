@@ -40,24 +40,7 @@ export default function RootLayout({
           </div>
           <Toaster 
             position="bottom-right" 
-            richColors 
-            toastOptions={{
-              style: {
-                color: '#ffffff',
-              },
-              error: {
-                style: {
-                  backgroundColor: '#ef4444',
-                  color: '#ffffff',
-                },
-              },
-              success: {
-                style: {
-                  backgroundColor: '#10b981',
-                  color: '#ffffff',
-                },
-              },
-            }}
+            richColors
           />
         </Providers>
       </body>
