@@ -5,7 +5,7 @@ import { VantaRings } from "@/components/three/VantaRings";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<{ raf: (time: number) => void; destroy: () => void } | null>(null);
 
   useEffect(() => {
     setMounted(true);

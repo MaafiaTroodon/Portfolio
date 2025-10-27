@@ -46,8 +46,9 @@ export async function POST(req: Request) {
         INSERT INTO contact_messages (name, email, subject, message, ip, user_agent)
         VALUES (${name}, ${email}, ${subject}, ${message}, ${ip}, ${ua});
       `;
-    } catch (dbError: any) {
-      console.warn("Database error (table may not exist):", dbError.message);
+    } catch (dbError: unknown) {
+      const errorMessage = dbError instanceof Error ? dbError.message : String(dbError);
+      console.warn("Database error (table may not exist):", errorMessage);
       // Continue to send email even if DB fails
     }
 
@@ -74,8 +75,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("Contact API error:", e);
-    return NextResponse.json({ ok: false, error: e.message || "Server error. Please check server logs." }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : "Server error. Please check server logs.";
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 }
