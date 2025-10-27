@@ -1,0 +1,39 @@
+NETLIFY DEPLOYMENT - STEP BY STEP
+=====================================
+
+IMPORTANT: Add these environment variables BEFORE deploying!
+
+1. On Netlify dashboard, go to: Site Settings → Environment Variables
+
+2. Click "Add a variable" and add these 4 variables:
+
+   Variable: DATABASE_URL
+   Value: postgresql://neondb_owner:npg_ba7oVg9PjWwv@ep-odd-cloud-ahlos5c2-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+   Variable: RESEND_API_KEY
+   Value: re_19seyv5J_26Q2hrTpPvV1Rrn6gQZfzStj
+
+   Variable: EMAIL_FROM
+   Value: Malhar <onboarding@resend.dev>
+
+   Variable: EMAIL_TO
+   Value: ml575444@dal.ca
+
+3. After adding variables, click "Deploy portfoliomalhar"
+
+4. Wait for build to complete (takes 2-5 minutes)
+
+5. Your site will be live at:
+   https://portfoliomalhar.netlify.app
+
+=====================================
+
+Your Netlify build settings are already configured:
+- Build command: pnpm run build
+- Node version: 20
+- Next.js plugin: Auto-configured
+
+The netlify.toml file handles everything automatically!
+
+=====================================
+
