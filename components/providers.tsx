@@ -3,17 +3,6 @@
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import type Lenis from "lenis";
-import { ClientOnly } from "./ClientOnly";
-import dynamic from "next/dynamic";
-
-// Only load Three.js on client side
-const ThreeScene = dynamic(
-  () => import("@/three/Scene").then((mod) => ({ default: mod.ThreeScene })),
-  {
-    ssr: false,
-    loading: () => null,
-  }
-);
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -66,9 +55,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="portfolio-theme"
     >
-      <ClientOnly>
-        <ThreeScene />
-      </ClientOnly>
       {children}
     </ThemeProvider>
   );
