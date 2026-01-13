@@ -60,7 +60,7 @@ const experience = [
   {
     role: "Backend Team Lead Intern",
     company: "Worship Streaming Platform – Remote",
-    duration: "May 2025 – Present",
+    duration: "May 2025 – December 2025",
     logo: "/photos/worshiplogo.png",
     bullets: [
       "Lead backend development for a cloud-based streaming platform designed to connect churches with their communities.",
