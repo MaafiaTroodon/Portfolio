@@ -16,6 +16,7 @@ const projects = [
     role: "Full-Stack Developer (React, Redux) • Jan 2025 – Apr 2025",
     description: "A modern Spotify-style web app with global audio controls, lyrics view, location-aware charts, and fast search. Integrated multiple music endpoints and synchronized playback across routes with Redux state.",
     tags: ["React 18", "Redux Toolkit", "Tailwind", "ShazamCore API", "Spotify API"],
+    techStack: "React 18, Redux Toolkit, Tailwind, ShazamCore API, Spotify API.",
     liveUrl: "https://flexbeatsx.netlify.app",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/FlexBeats",
@@ -27,6 +28,7 @@ const projects = [
     role: "Game Designer & Developer",
     description: "A third-person action-platformer where a SWAT operative battles vampires across multi-level arenas with moving platforms and checkpoints. Implemented enemy AI, health/lives HUD, camera follow, and portal-gated progression.",
     tags: ["Unity 2022 LTS", "C#", "Rigidbody physics", "URP/HDRP"],
+    techStack: "Unity 2022 LTS, C#, Rigidbody physics, URP/HDRP.",
     liveUrl: "https://maafiatroodon.itch.io/urban-swat-platformer",
     liveLabel: "Play on itch.io",
     githubUrl: "https://github.com/MaafiaTroodon/UrbanSWAT-Platformer",
@@ -38,6 +40,7 @@ const projects = [
     role: "Frontend Developer • Feb 2025 – Mar 2025",
     description: "A polished, iPhone-15-inspired product site with 3D device models, section reveals, and smooth scroll choreography. Built lightweight model viewers, page micro-interactions, and performance-friendly animations.",
     tags: ["React", "Three.js (R3F)", "GSAP", "Tailwind", "Vite"],
+    techStack: "React, Three.js (R3F), GSAP, Tailwind, Vite.",
     liveUrl: "https://malhar999clone.netlify.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/Apple_Website_Clone",
@@ -49,6 +52,7 @@ const projects = [
     role: "Junior Software Developer (React/WebXR) • Sept 2024 – Dec 2024",
     description: "Course project for CSCI 2691 delivered in agile sprints with Jira. Built a web AR tool to load, render, and manipulate molecular structures (ball-and-stick) with scene controls and example datasets.",
     tags: ["Node.js", "Express", "Three.js", "AR.js/WebXR", "Supabase"],
+    techStack: "Node.js, Express, Three.js, AR.js/WebXR, Supabase.",
     liveUrl: "https://chem-ar-production.up.railway.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/chem-ar",
@@ -60,6 +64,7 @@ const projects = [
     role: "Software Engineer (Android, Java)",
     description: "Mobile app blending tutor discovery and a simple store. Implemented role-based access (student/tutor/admin), product search/details, and location mapping via Google Maps. Wrote tests for UI flows and refactored code.",
     tags: ["Android Studio", "Java", "JUnit/Espresso", "Google Maps API"],
+    techStack: "Android Studio, Java, JUnit/Espresso, Google Maps API.",
     liveUrl: null,
     liveLabel: null,
     githubUrl: "https://github.com/MaafiaTroodon/QuickTutor",
@@ -71,6 +76,7 @@ const projects = [
     role: "Full-Stack Developer",
     description: "A React-based interactive portfolio that integrates a Node/Express backend for dynamic content fetching. Features include a live theme switcher, skill filtering, project retrieval from API, and real-time weather display.",
     tags: ["React.js", "Express.js", "CSS3", "HTML5", "Netlify"],
+    techStack: "React.js, Express.js, CSS3, HTML5, Netlify.",
     liveUrl: "https://fancy-lollipop-fcb73b.netlify.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/interactive-portfolio",
@@ -78,10 +84,8 @@ const projects = [
   },
 ];
 
-
 function ProjectLinks({ github, live, liveLabel = "Live Demo" }: { github?: string; live?: string; liveLabel?: string | null }) {
   const base = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 text-sm font-medium text-slate-100 backdrop-blur transition hover:border-violet-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
-
   return (
     <div className="flex flex-wrap gap-3">
       {github && (
@@ -145,7 +149,7 @@ export function ProjectsGrid() {
 
       <Stagger className="grid gap-6 md:grid-cols-2">
         {projects.map((project, index) => (
-        <Item key={project.id} delay={index * 0.02}>
+          <Item key={project.id} delay={index * 0.02}>
           <motion.div 
             whileHover={{ scale: 1.02 }}
             className="transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
@@ -185,7 +189,7 @@ export function ProjectsGrid() {
               </CardFooter>
             </Card>
           </motion.div>
-        </Item>
+          </Item>
         ))}
       </Stagger>
     </div>

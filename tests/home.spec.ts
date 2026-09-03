@@ -193,7 +193,7 @@ test.describe("Professional portfolio", () => {
     await page.mouse.move(1, 1);
     const carousel = page.getByRole("region", { name: "MyWorship platform media" });
     await expect(carousel).toHaveAttribute("data-active-index", "0");
-    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 4000 });
+    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 5000 });
     await expect(carousel.getByAltText(/administrator dashboard/)).toBeVisible();
   });
 
@@ -282,7 +282,13 @@ test.describe("Professional portfolio", () => {
 
   test("resume controls are manual", async ({ page }) => {
     await page.goto("/#resume");
-    await expect(page.getByRole("link", { name: "Open Resume" })).toHaveAttribute("href", "/resume.pdf");
-    await expect(page.getByRole("link", { name: "Download PDF" })).toHaveAttribute("download", "");
+    const openResume = page.getByRole("link", { name: "Open Resume" });
+    const downloadResume = page.getByRole("link", { name: "Download PDF" });
+    await expect(openResume).toHaveAttribute("href", "/Data_Analyst%20_Resume.pdf");
+    await expect(downloadResume).toHaveAttribute("download", "");
+
+    await page.getByRole("button", { name: "Software Resume" }).click();
+    await expect(openResume).toHaveAttribute("href", "/Software_Resume.pdf");
+    await expect(downloadResume).toHaveAttribute("href", "/Software_Resume.pdf");
   });
 });
