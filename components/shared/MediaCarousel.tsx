@@ -75,11 +75,11 @@ export function MediaCarousel({
     >
       <div
         className={cn(
-          "relative min-h-[22rem]",
+          "relative w-full",
           variant === "wide"
-            ? "aspect-[4/3] sm:aspect-[16/9] lg:aspect-[16/7] lg:min-h-[30rem]"
+            ? "h-72 sm:h-auto sm:aspect-[16/9] lg:aspect-[16/7] lg:min-h-[30rem]"
             : variant === "wide-compact"
-              ? "aspect-[4/3] sm:aspect-[16/9] lg:aspect-[16/7] lg:min-h-[23rem]"
+              ? "h-72 sm:h-auto sm:aspect-[16/9] lg:aspect-[16/7] lg:min-h-[23rem]"
             : "aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]",
         )}
       >
@@ -115,7 +115,7 @@ export function MediaCarousel({
               className={variant !== "default" ? "object-contain" : "object-cover"}
               style={{ objectPosition: activeItem.objectPosition ?? "center" }}
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent px-5 pb-5 pt-20">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent px-4 pb-14 pt-20 sm:px-5 sm:pb-5">
               <p className="text-sm font-semibold text-white">{activeItem.title}</p>
               <p className="mt-1 text-xs leading-relaxed text-slate-200">{activeItem.caption}</p>
             </div>
@@ -127,7 +127,7 @@ export function MediaCarousel({
             <button
               type="button"
               onClick={showPrevious}
-              className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-slate-950/75 text-white shadow-lg backdrop-blur transition hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+              className="absolute left-2 top-[40%] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-slate-950/75 text-white shadow-lg backdrop-blur transition hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 sm:left-3 sm:top-1/2"
               aria-label="Show previous image"
             >
               <ChevronLeft aria-hidden="true" className="h-5 w-5" />
@@ -135,7 +135,7 @@ export function MediaCarousel({
             <button
               type="button"
               onClick={showNext}
-              className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-slate-950/75 text-white shadow-lg backdrop-blur transition hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+              className="absolute right-2 top-[40%] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-slate-950/75 text-white shadow-lg backdrop-blur transition hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 sm:right-3 sm:top-1/2"
               aria-label="Show next image"
             >
               <ChevronRight aria-hidden="true" className="h-5 w-5" />
@@ -145,19 +145,18 @@ export function MediaCarousel({
       </div>
 
       {items.length > 1 && (
-        <div className="absolute bottom-3 right-4 flex items-center gap-2" aria-label="Choose image">
+        <div className="absolute bottom-3 left-1/2 flex max-w-[calc(100%-1rem)] -translate-x-1/2 items-center gap-2 rounded-full bg-slate-950/55 px-2 py-1 backdrop-blur sm:left-auto sm:right-4 sm:translate-x-0 sm:bg-transparent sm:p-0" aria-label="Choose image">
           {items.map((item, index) => (
             <button
               key={item.src}
               type="button"
-              aria-label={`Show image ${index + 1}: ${item.title}`}
-              aria-current={index === activeIndex ? "true" : undefined}
-              onClick={() => setActiveIndex(index)}
-              className={cn(
-                "h-2.5 rounded-full border border-white/40 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
-                index === activeIndex ? "w-7 bg-violet-300" : "w-2.5 bg-white/55 hover:bg-white",
-              )}
-            />
+            aria-label={`Show image ${index + 1}: ${item.title}`}
+            aria-current={index === activeIndex ? "true" : undefined}
+            onClick={() => setActiveIndex(index)}
+            className="flex h-7 w-7 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          >
+            <span aria-hidden="true" className={cn("h-2.5 rounded-full border border-white/40 transition-all", index === activeIndex ? "w-5 bg-violet-300" : "w-2.5 bg-white/55")} />
+          </button>
           ))}
         </div>
       )}

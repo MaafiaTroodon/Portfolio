@@ -7,7 +7,7 @@ import { VantaRings } from "@/components/three/VantaRings";
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const useNativeScroll = pathname === "/experience/portucana";
+  const useNativeScroll = pathname === "/experience/portucana" || pathname === "/projects/bullishai";
   const lenisRef = useRef<{ raf: (time: number) => void; destroy: () => void } | null>(null);
   const frameRef = useRef<number | null>(null);
   const [reduceMotion, setReduceMotion] = useState(false);

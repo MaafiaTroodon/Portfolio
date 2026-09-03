@@ -54,6 +54,19 @@ test.describe("Professional portfolio", () => {
     await expect(page.getByText(/RAG-based information retrieval/)).toBeVisible();
   });
 
+  test("shows the animated SharePoint data preview above the Portucana role details", async ({ page }) => {
+    await page.goto("/experience/portucana");
+    const dataPreview = page.getByLabel("Animated SharePoint operational data preview");
+    await expect(dataPreview).toBeVisible();
+    await expect(dataPreview.getByRole("table", { name: "Illustrative time-off request records" })).toBeVisible();
+    const previewComesFirst = await page.evaluate(() => {
+      const preview = document.querySelector('[aria-label="Animated SharePoint operational data preview"]');
+      const date = Array.from(document.querySelectorAll("p")).find((item) => item.textContent === "May 2026 – August 2026");
+      return Boolean(preview && date && preview.compareDocumentPosition(date) & Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+    expect(previewComesFirst).toBe(true);
+  });
+
   test("previews both Portucana certificates without navigating away", async ({ page, context }) => {
     await page.goto("/#about");
     const originalUrl = page.url();
@@ -117,7 +130,7 @@ test.describe("Professional portfolio", () => {
     const expectedLinks = [
       "https://bullishai.netlify.app/",
       "https://github.com/MaafiaTroodon/BullishAI",
-      "https://www.youtube.com/watch?v=d9bEno_9TNU",
+      "https://youtu.be/EM9nBk9edVA",
       "https://flexbeatsx.netlify.app",
       "https://github.com/MaafiaTroodon/FlexBeats",
       "https://maafiatroodon.itch.io/urban-swat-platformer",
@@ -158,8 +171,8 @@ test.describe("Professional portfolio", () => {
     const bullishCarousel = page.getByRole("region", { name: "BullishAI project screenshots" });
     await expect(tennisCarousel).toHaveAttribute("data-active-index", "0");
     await expect(bullishCarousel).toHaveAttribute("data-active-index", "0");
-    await expect(bullishCarousel).toHaveAttribute("data-active-index", "1", { timeout: 4000 });
-    await expect(tennisCarousel).toHaveAttribute("data-active-index", "1", { timeout: 4000 });
+    await expect(bullishCarousel).toHaveAttribute("data-active-index", "1", { timeout: 5000 });
+    await expect(tennisCarousel).toHaveAttribute("data-active-index", "1", { timeout: 5000 });
   });
 
   test("allows manual Portucana carousel navigation", async ({ page }) => {
@@ -182,9 +195,9 @@ test.describe("Professional portfolio", () => {
     await carousel.getByRole("button", { name: /Show image 2:/ }).click();
     await carousel.getByRole("button", { name: /Show image 1:/ }).click();
     await expect(carousel).toHaveAttribute("data-active-index", "0");
-    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 4000 });
+    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 5000 });
     await expect(carousel.getByAltText(/visiting a Portucana construction project/)).toBeVisible();
-    await expect(carousel).toHaveAttribute("data-active-index", "2", { timeout: 4000 });
+    await expect(carousel).toHaveAttribute("data-active-index", "2", { timeout: 5000 });
     await expect(carousel.getByAltText(/with Portucana team members/)).toBeVisible();
   });
 
@@ -235,7 +248,7 @@ test.describe("Professional portfolio", () => {
 
   test("opens the Portucana case study and exposes certificate actions", async ({ page }) => {
     await page.goto("/");
-    const caseStudyLink = page.getByRole("link", { name: "Explore Full Case Study" });
+    const caseStudyLink = page.locator('a[href="/experience/portucana"]');
     await caseStudyLink.scrollIntoViewIfNeeded();
     await Promise.all([
       page.waitForURL(/\/experience\/portucana$/),
@@ -268,7 +281,7 @@ test.describe("Professional portfolio", () => {
     const carousel = page.getByRole("region", { name: "Portucana professional photos" });
     await carousel.scrollIntoViewIfNeeded();
     await expect(carousel).toHaveAttribute("data-active-index", "0");
-    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 4000 });
+    await expect(carousel).toHaveAttribute("data-active-index", "1", { timeout: 5000 });
     await expect(carousel.getByAltText(/visiting a Portucana construction project/)).toBeVisible();
   });
 

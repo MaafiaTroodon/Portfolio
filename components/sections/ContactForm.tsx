@@ -124,7 +124,7 @@ export function ContactForm() {
           {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
         </div>
 
-        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full group">
+        <Button type="submit" size="lg" disabled={isSubmitting} className="min-h-11 w-full group">
           {isSubmitting ? (
             "Sending..."
           ) : (
@@ -138,4 +138,3 @@ export function ContactForm() {
     </motion.div>
   );
 }
-

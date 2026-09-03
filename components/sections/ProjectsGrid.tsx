@@ -2,10 +2,11 @@
 
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, PlayCircle } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Stagger, Item } from "@/components/motion/Stagger";
 import Image from "next/image";
+import Link from "next/link";
 import { MediaCarousel } from "@/components/shared/MediaCarousel";
 import { bullishAiMedia } from "@/lib/portfolio-data";
 
@@ -110,7 +111,7 @@ export function ProjectsGrid() {
           <MediaCarousel items={bullishAiMedia} label="BullishAI project screenshots" variant="wide-compact" />
         </div>
 
-        <div className="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
+        <div className="grid gap-8 p-5 sm:p-9 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Featured independent project</p>
             <h3 className="mt-3 text-3xl font-semibold sm:text-4xl">BullishAI</h3>
@@ -125,18 +126,21 @@ export function ProjectsGrid() {
               ))}
             </div>
             <div className="mt-7 flex flex-wrap gap-3" aria-label="BullishAI project links">
-              <a href="https://bullishai.netlify.app/" target="_blank" rel="noopener noreferrer" className="btn-gradient min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300" aria-label="Open the BullishAI live project in a new tab">
-                <span>Live Project</span><ExternalLink aria-hidden="true" className="h-4 w-4" />
+              <Link href="/projects/bullishai" className="btn-gradient min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
+                <span>Explore Full Case Study</span><ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+              <a href="https://bullishai.netlify.app/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 text-sm font-medium text-slate-100 transition hover:border-violet-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300" aria-label="Open the BullishAI live project in a new tab">
+                Live Project<ExternalLink aria-hidden="true" className="h-4 w-4" />
               </a>
               <a href="https://github.com/MaafiaTroodon/BullishAI" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 text-sm font-medium text-slate-100 transition hover:border-violet-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300" aria-label="View BullishAI on GitHub in a new tab">
                 <Github aria-hidden="true" className="h-4 w-4" /> GitHub
               </a>
-              <a href="https://www.youtube.com/watch?v=d9bEno_9TNU" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 text-sm font-medium text-slate-100 transition hover:border-violet-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300" aria-label="Watch the BullishAI video demo in a new tab">
+              <a href="https://youtu.be/EM9nBk9edVA" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 text-sm font-medium text-slate-100 transition hover:border-violet-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300" aria-label="Watch the BullishAI video demo in a new tab">
                 <PlayCircle aria-hidden="true" className="h-4 w-4" /> Watch Demo
               </a>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
             <p className="text-sm font-semibold text-violet-200">Engineering focus</p>
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-300">
               <li>Designing clear boundaries between data ingestion, application logic, and presentation.</li>
@@ -156,13 +160,13 @@ export function ProjectsGrid() {
           >
             <Card className="group hover:shadow-2xl transition-all duration-500 h-full flex flex-col hover:border-primary/50 border-2 overflow-hidden">
               {project.image && (
-                <div className="relative w-full h-48 overflow-hidden bg-muted">
+                <div className="relative h-52 w-full overflow-hidden bg-slate-950">
                   <Image
                     src={project.image}
                     alt={`${project.title} screenshot`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
               )}

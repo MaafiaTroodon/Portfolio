@@ -9,7 +9,7 @@ export function BeyondScreen() {
         <MediaCarousel items={tennisPhotos} label="Tennis photos" variant="wide-compact" />
       </div>
 
-      <div className="p-6 sm:p-8 lg:p-10">
+      <div className="p-5 sm:p-8 lg:p-10">
         <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300"><Trophy aria-hidden="true" className="h-4 w-4" /> Beyond the screen</p>
         <h2 id="beyond-screen-heading" className="mt-3 text-2xl font-semibold sm:text-3xl">Tennis has always been part of my life.</h2>
 

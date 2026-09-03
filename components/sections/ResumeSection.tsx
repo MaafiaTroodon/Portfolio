@@ -34,8 +34,8 @@ export function ResumeSection() {
         Choose the resume that best matches the role. The document changes only when you select one below.
       </p>
 
-      <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center gap-5 rounded-2xl border border-white/10 bg-slate-950/75 p-6 shadow-xl backdrop-blur sm:flex-row sm:justify-between sm:text-left">
-        <div className="flex items-center gap-4">
+      <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center gap-5 rounded-2xl border border-white/10 bg-slate-950/75 p-5 shadow-xl backdrop-blur sm:flex-row sm:justify-between sm:p-6 sm:text-left">
+        <div className="flex min-w-0 flex-col items-center gap-3 text-center sm:flex-row sm:gap-4 sm:text-left">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-violet-200">
             <FileText aria-hidden="true" className="h-5 w-5" />
           </span>

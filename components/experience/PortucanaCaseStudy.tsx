@@ -7,6 +7,7 @@ import {
   Images, Mail, MapPin, MonitorSmartphone, RotateCcw, ShieldCheck, UsersRound,
   Workflow, Wrench,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import Reveal from "@/components/motion/Reveal";
 import { CertificateDialogButtons } from "@/components/shared/CertificateDialog";
@@ -71,6 +72,64 @@ function BulletList({ items }: { items: string[] }) {
   return <ul className="space-y-3">{items.map((item) => <li key={item} className="flex gap-3 text-sm leading-7 text-slate-300 sm:text-base"><CheckCircle2 aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-violet-300" /><span>{item}</span></li>)}</ul>;
 }
 
+const sharePointRows = [
+  ["VR-0241", "Employee A", "Vacation", "Approved"],
+  ["VR-0242", "Employee B", "Sick / PTO", "Pending"],
+  ["VR-0243", "Employee C", "Vacation", "Rejected"],
+] as const;
+
+function SharePointDataPreview() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="mb-5 overflow-hidden rounded-xl border border-teal-300/20 bg-[#07212a]/80 shadow-lg shadow-teal-950/20" aria-label="Animated SharePoint operational data preview">
+      <div className="flex items-center justify-between border-b border-teal-200/15 bg-teal-500/10 px-3 py-2.5">
+        <span className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-teal-200"><Database aria-hidden="true" className="h-3.5 w-3.5" /> SharePoint · Operational List</span>
+        <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.8)]" aria-label="Data synchronized" />
+      </div>
+      <div role="table" aria-label="Illustrative time-off request records" className="divide-y divide-white/[0.06] sm:hidden">
+        {sharePointRows.map((row, rowIndex) => (
+          <motion.div
+            key={row[0]}
+            role="row"
+            initial={reduceMotion ? false : { opacity: 0, x: -18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 + rowIndex * 0.18, duration: 0.5, ease: "easeOut" }}
+            className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 px-3 py-3 text-[0.68rem] text-slate-300 transition-colors hover:bg-teal-300/[0.07]"
+          >
+            <span role="cell" className="font-mono font-semibold text-teal-200">{row[0]}</span>
+            <span role="cell" className={cn("rounded-full px-2 py-0.5 font-semibold", row[3] === "Approved" ? "bg-emerald-400/10 text-emerald-200" : row[3] === "Rejected" ? "bg-rose-400/15 text-rose-200" : "bg-amber-300/10 text-amber-100")}>{row[3]}</span>
+            <span role="cell" className="col-span-2 text-slate-300">{row[1]} · {row[2]}</span>
+          </motion.div>
+        ))}
+      </div>
+      <div className="hidden overflow-hidden sm:block">
+        <table className="w-full table-fixed border-collapse text-left text-[0.67rem]" aria-label="Illustrative time-off request records">
+          <thead className="bg-black/20 text-teal-100">
+            <tr>{["Request ID", "Employee", "Leave type", "Status"].map((heading) => <th key={heading} scope="col" className="border-b border-teal-200/10 px-3 py-2 font-semibold">{heading}</th>)}</tr>
+          </thead>
+          <tbody>
+            {sharePointRows.map((row, rowIndex) => (
+              <motion.tr
+                key={row[0]}
+                initial={reduceMotion ? false : { opacity: 0, x: -18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + rowIndex * 0.18, duration: 0.5, ease: "easeOut" }}
+                className="border-b border-white/[0.06] text-slate-300 transition-colors last:border-b-0 hover:bg-teal-300/[0.07]"
+              >
+                <td className="truncate px-3 py-2.5 font-mono text-teal-200">{row[0]}</td>
+                <td className="truncate px-3 py-2.5">{row[1]}</td>
+                <td className="truncate px-3 py-2.5">{row[2]}</td>
+                <td className="truncate px-3 py-2.5"><span className={cn("inline-flex max-w-full truncate rounded-full px-2 py-0.5 font-semibold", row[3] === "Approved" ? "bg-emerald-400/10 text-emerald-200" : row[3] === "Rejected" ? "bg-rose-400/15 text-rose-200" : "bg-amber-300/10 text-amber-100")}>{row[3]}</span></td>
+              </motion.tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export function PortucanaCaseStudy() {
   const [activeMedia, setActiveMedia] = useState<CaseStudyMedia | null>(null);
   const [activeStage, setActiveStage] = useState("01");
@@ -116,10 +175,10 @@ export function PortucanaCaseStudy() {
   return (
     <div className="content-backdrop min-h-screen">
       <div aria-hidden="true" className="fixed inset-x-0 top-16 z-50 h-1 origin-left bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-200 transition-transform duration-150 motion-reduce:transition-none" style={{ transform: `scaleX(${progress})` }} />
-      <div className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:px-8">
         <header>
           <Link href="/#about" className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back to Portfolio</Link>
-          <div className="mt-8 overflow-hidden rounded-[2rem] border border-violet-300/20 bg-gradient-to-br from-slate-950 via-slate-950 to-violet-950/80 p-6 shadow-2xl shadow-violet-950/40 sm:p-10 lg:p-14">
+          <div className="mt-6 overflow-hidden rounded-3xl border border-violet-300/20 bg-gradient-to-br from-slate-950 via-slate-950 to-violet-950/80 p-5 shadow-2xl shadow-violet-950/40 sm:mt-8 sm:rounded-[2rem] sm:p-10 lg:p-14">
             <div className="grid gap-9 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.25em] text-violet-300">Portucana Construction Services</p>
@@ -128,6 +187,7 @@ export function PortucanaCaseStudy() {
                 <p className="mt-5 max-w-4xl leading-8 text-slate-300">I identified an opportunity to improve how time off was requested and tracked, worked directly with the CFO, owner, employees, and managers to understand the process, proposed an internal portal, and built the solution from the ground up with Power Apps, Power Automate, SharePoint, and Microsoft 365.</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur">
+                <SharePointDataPreview />
                 <p className="text-sm font-semibold text-slate-100">May 2026 – August 2026</p>
                 <p className="mt-2 flex items-center gap-2 text-sm text-slate-400"><MapPin aria-hidden="true" className="h-4 w-4" /> Halifax, NS</p>
                 <div className="mt-5 flex flex-wrap gap-2">{portucanaTags.slice(0, 6).map((tag) => <Badge key={tag} variant="secondary" className="border border-white/10 bg-white/5 text-slate-200">{tag}</Badge>)}</div>
@@ -140,7 +200,7 @@ export function PortucanaCaseStudy() {
           <section aria-labelledby="professional-gallery-heading">
             <div className="mb-6 flex items-center gap-3"><Images aria-hidden="true" className="h-5 w-5 text-violet-300" /><div><p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">Professional experience</p><h2 id="professional-gallery-heading" className="mt-1 text-2xl sm:text-3xl">The people and industry behind the work</h2></div></div>
             <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2">
-              {portucanaPhotos.map((photo, index) => <figure key={photo.src} className={cn("group overflow-hidden rounded-2xl border border-white/10 bg-slate-950", index === 0 ? "md:col-span-7 md:row-span-2" : "md:col-span-5")}><div className={cn("relative", index === 0 ? "aspect-[5/4] h-full min-h-80" : "aspect-[16/9]")}><Image src={photo.src} alt={photo.alt} fill priority={index === 0} sizes={index === 0 ? "(max-width: 768px) 100vw, 58vw" : "(max-width: 768px) 100vw, 42vw"} className="object-cover transition duration-500 group-hover:scale-[1.02]" style={{ objectPosition: photo.objectPosition ?? "center" }} /><figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent px-5 pb-4 pt-16"><span className="text-sm font-semibold text-white">{photo.title}</span><span className="mt-1 block text-xs text-slate-200">{photo.caption}</span></figcaption></div></figure>)}
+              {portucanaPhotos.map((photo, index) => <figure key={photo.src} className={cn("group overflow-hidden rounded-2xl border border-white/10 bg-slate-950", index === 0 ? "md:col-span-7 md:row-span-2" : "md:col-span-5")}><div className={cn("relative", index === 0 ? "aspect-[5/4] h-full md:min-h-80" : "aspect-[16/9]")}><Image src={photo.src} alt={photo.alt} fill priority={index === 0} sizes={index === 0 ? "(max-width: 768px) 100vw, 58vw" : "(max-width: 768px) 100vw, 42vw"} className="object-cover transition duration-500 group-hover:scale-[1.02]" style={{ objectPosition: photo.objectPosition ?? "center" }} /><figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent px-4 pb-4 pt-14 sm:px-5 sm:pt-16"><span className="text-sm font-semibold text-white">{photo.title}</span><span className="mt-1 block text-xs text-slate-200">{photo.caption}</span></figcaption></div></figure>)}
             </div>
           </section>
         </Reveal>
@@ -172,7 +232,7 @@ export function PortucanaCaseStudy() {
 
         <section aria-labelledby="system-story-heading" className="mt-24">
           <div className="mx-auto mb-12 max-w-3xl text-center"><p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Engineering case study</p><h2 id="system-story-heading" className="mt-3 text-3xl sm:text-5xl">How the system came together</h2><p className="mt-5 leading-relaxed text-slate-300">Twelve stages connecting business analysis, product decisions, implementation, operational integrity, and handoff.</p></div>
-          <nav aria-label="Case study stages" className="sticky top-[4.25rem] z-30 -mx-4 mb-8 overflow-x-auto border-y border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur lg:hidden"><ol className="flex w-max gap-2">{stageNavigation.map(([number, title]) => <li key={number}><a href={`#stage-${number}`} data-stage-link={number} aria-current={activeStage === number ? "step" : undefined} className={cn("inline-flex min-h-10 items-center gap-2 rounded-full border px-3 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300", activeStage === number ? "border-violet-300/50 bg-violet-400/15 text-violet-100" : "border-white/10 bg-white/[0.03] text-slate-400")}><span>{number}</span><span>{title}</span></a></li>)}</ol></nav>
+          <nav aria-label="Case study stages" className="sticky top-[4.25rem] z-30 -mx-4 mb-8 overflow-x-auto border-y border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur lg:hidden"><ol className="flex w-max gap-2">{stageNavigation.map(([number, title]) => <li key={number}><a href={`#stage-${number}`} data-stage-link={number} aria-current={activeStage === number ? "step" : undefined} className={cn("inline-flex min-h-11 items-center gap-2 rounded-full border px-3 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300", activeStage === number ? "border-violet-300/50 bg-violet-400/15 text-violet-100" : "border-white/10 bg-white/[0.03] text-slate-400")}><span>{number}</span><span>{title}</span></a></li>)}</ol></nav>
           <div className="grid gap-10 lg:grid-cols-[14rem_minmax(0,1fr)]">
             <aside className="hidden lg:block"><nav aria-label="Case study stage progress" className="sticky top-28 rounded-2xl border border-white/10 bg-slate-950/80 p-3 backdrop-blur"><ol className="space-y-1">{stageNavigation.map(([number, title]) => { const completed = Number(number) < Number(activeStage); const current = activeStage === number; return <li key={number}><a href={`#stage-${number}`} aria-current={current ? "step" : undefined} className={cn("flex min-h-10 items-center gap-3 rounded-xl px-3 py-2 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300", current ? "bg-violet-400/15 text-violet-100" : "text-slate-400 hover:bg-white/5 hover:text-slate-200")}><span className={cn("flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-[10px]", current ? "border-violet-300 bg-violet-400/20" : completed ? "border-emerald-300/40 bg-emerald-400/10 text-emerald-200" : "border-white/15")}>{completed ? "✓" : number}</span><span>{title}</span></a></li>; })}</ol></nav></aside>
             <div className="min-w-0">
@@ -196,7 +256,7 @@ export function PortucanaCaseStudy() {
 
               <StageSection number="07" eyebrow="Operational integrity" title="Data, Processing State & Consistency"><p className="leading-8 text-slate-300">SharePoint was the operational data layer—not a set of SQL tables. The broader portal used roughly five core list structures for employee leave-year balances, submitted requests, request dates/details, vacation calendar records, and administration/configuration concerns.</p><div className="mt-7 grid gap-4 sm:grid-cols-2">{[
                 ["Relationships", "SharePoint item IDs, lookup-style employee/manager references, RequestID, approver information, and LeaveYear connect related records."], ["Processing flags", "ApprovalProcessed, CalendarCreated, CancellationProcessed, and BalanceReturned record whether a side effect already happened."], ["Business state", "Request status and calendar status make pending, approved, rejected, and cancelled records understandable across the system."], ["Why it matters", "Explicit state guards against double deduction, duplicate calendar events, repeated approvals or notifications, and double refunds."],
-              ].map(([title, body]) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5"><h4 className="font-sans text-sm font-semibold text-violet-200">{title}</h4><p className="mt-2 text-sm leading-7 text-slate-400">{body}</p></div>)}</div><div className="mt-8 overflow-x-auto rounded-2xl border border-emerald-300/15 bg-emerald-400/[0.04] p-5"><p className="min-w-max font-mono text-xs leading-7 text-emerald-100 sm:text-sm">RequestID → ApprovalProcessed → CalendarCreated → CancellationProcessed → BalanceReturned</p></div></StageSection>
+              ].map(([title, body]) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5"><h4 className="font-sans text-sm font-semibold text-violet-200">{title}</h4><p className="mt-2 text-sm leading-7 text-slate-400">{body}</p></div>)}</div><div className="mt-8 rounded-2xl border border-emerald-300/15 bg-emerald-400/[0.04] p-4 sm:p-5"><p className="break-words text-center font-mono text-xs leading-7 text-emerald-100 sm:text-sm">RequestID → ApprovalProcessed → CalendarCreated → CancellationProcessed → BalanceReturned</p></div></StageSection>
 
               <StageSection number="08" eyebrow="Time-based state" title="Balances, Calendar & Yearly State"><div className="grid gap-6 lg:grid-cols-2"><div className="rounded-2xl border border-white/10 bg-slate-950/75 p-6"><RotateCcw aria-hidden="true" className="h-6 w-6 text-violet-300" /><h4 className="mt-4 text-2xl">Leave-year rollover</h4><p className="mt-3 text-sm leading-7 text-slate-300">The scheduled flow does not simply “set balances to zero.” It checks active employees, determines whether the new year’s balance record already exists, creates only missing records, applies the new entitlement, resets used values for that new record, and keeps years separated with LeaveYear.</p></div><div className="rounded-2xl border border-white/10 bg-slate-950/75 p-6"><Database aria-hidden="true" className="h-6 w-6 text-violet-300" /><h4 className="mt-4 text-2xl">Calendar representation</h4><p className="mt-3 text-sm leading-7 text-slate-300">Each approved date becomes a request-linked calendar record with its day value and processing status. That data supports the shared visual calendar and the Outlook event lifecycle without losing the original request context.</p></div></div><div className="mt-8 grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"><MediaPreview item={media.rollover} onOpen={setActiveMedia} /><MediaPreview item={media.calendar} onOpen={setActiveMedia} /></div></StageSection>
 

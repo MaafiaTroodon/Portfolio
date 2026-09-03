@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Github, Linkedin, Menu } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -12,14 +12,29 @@ import Link from "next/link";
 const navLinks = [
   { href: "/#home", section: "home", label: "Home" },
   { href: "/#about", section: "about", label: "About" },
+  { href: "/#work-experience", section: "work-experience", label: "Work Experience" },
   { href: "/#projects", section: "projects", label: "Projects" },
   { href: "/#resume", section: "resume", label: "Resume" },
   { href: "/#contact", section: "contact", label: "Contact" },
 ];
 
+const caseStudyLinks = [
+  {
+    href: "/experience/portucana",
+    label: "Systems & Data Analyst Co-op",
+    description: "Portucana engineering case study",
+  },
+  {
+    href: "/projects/bullishai",
+    label: "BullishAI",
+    description: "Independent engineering case study",
+  },
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [caseStudiesOpen, setCaseStudiesOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const pathname = usePathname();
 
@@ -28,7 +43,7 @@ export function Navbar() {
       setScrolled(window.scrollY > 20);
       
       // Update active section based on scroll position
-      const sections = ["home", "about", "projects", "resume", "contact"];
+      const sections = ["home", "about", "work-experience", "projects", "resume", "contact"];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -49,6 +64,7 @@ export function Navbar() {
     if (pathname === "/") {
       e.preventDefault();
       document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", `#${section}`);
     }
     setMobileMenuOpen(false);
   };
@@ -77,7 +93,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden xl:flex items-center gap-5">
               <div className="flex items-center gap-3">
                 {navLinks.map((link) => (
                   <a
@@ -89,6 +105,58 @@ export function Navbar() {
                     {link.label}
                   </a>
                 ))}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setCaseStudiesOpen(true)}
+                  onMouseLeave={() => setCaseStudiesOpen(false)}
+                  onFocusCapture={() => setCaseStudiesOpen(true)}
+                  onBlurCapture={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) setCaseStudiesOpen(false);
+                  }}
+                >
+                  <button
+                    type="button"
+                    className="coolBeans inline-flex items-center gap-2"
+                    aria-haspopup="menu"
+                    aria-expanded={caseStudiesOpen}
+                    onClick={() => setCaseStudiesOpen((open) => !open)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape") {
+                        setCaseStudiesOpen(false);
+                        event.currentTarget.focus();
+                      }
+                    }}
+                  >
+                    Case Studies
+                    <ChevronDown aria-hidden="true" className={cn("h-4 w-4 transition-transform", caseStudiesOpen && "rotate-180")} />
+                  </button>
+                  <AnimatePresence>
+                    {caseStudiesOpen ? (
+                      <motion.div
+                        role="menu"
+                        aria-label="Case Studies"
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.16 }}
+                        className="absolute right-0 top-full z-50 mt-3 w-80 overflow-hidden rounded-2xl border border-violet-300/20 bg-slate-950/95 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl"
+                      >
+                        {caseStudyLinks.map((caseStudy) => (
+                          <Link
+                            key={caseStudy.href}
+                            href={caseStudy.href}
+                            role="menuitem"
+                            onClick={() => setCaseStudiesOpen(false)}
+                            className="block rounded-xl px-4 py-3 transition hover:bg-violet-400/10 focus-visible:bg-violet-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-violet-300"
+                          >
+                            <span className="block text-sm font-semibold text-amber-100">{caseStudy.label}</span>
+                            <span className="mt-1 block text-xs text-slate-400">{caseStudy.description}</span>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
               </div>
 
               <div className="flex items-center gap-3 border-l pl-6 ml-2">
@@ -123,7 +191,7 @@ export function Navbar() {
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2 rounded-lg transition-all duration-300 hover:bg-accent"
+              className="flex h-11 w-11 items-center justify-center rounded-lg transition-all duration-300 hover:bg-accent xl:hidden"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open menu"
               whileHover={{ scale: 1.05 }}
@@ -152,7 +220,7 @@ export function Navbar() {
                       key={link.href}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{ delay: Math.min(index * 0.04, 0.16), duration: 0.22 }}
                     >
                       <a
                         href={link.href}
@@ -169,6 +237,23 @@ export function Navbar() {
                     </motion.div>
                   );
                 })}
+                <div className="mt-4 border-t border-white/10 pt-5">
+                  <p className="px-4 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">Case Studies</p>
+                  <div className="mt-2 space-y-2">
+                    {caseStudyLinks.map((caseStudy, index) => (
+                      <motion.div key={caseStudy.href} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 + index * 0.04, duration: 0.22 }}>
+                        <Link
+                          href={caseStudy.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-lg px-4 py-3 transition-all duration-300 hover:bg-accent active:scale-95"
+                        >
+                          <span className="block text-base font-medium">{caseStudy.label}</span>
+                          <span className="mt-1 block text-xs text-muted-foreground">{caseStudy.description}</span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
                 <div className="pt-6 border-t mt-4 flex items-center justify-between">
                   <div className="flex gap-3">
                     <motion.a

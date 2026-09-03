@@ -19,7 +19,7 @@ export default function HomePage() {
         </section>
         
         <section id="about" className="content-backdrop scroll-mt-16 px-4 py-20 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-0 sm:px-6 lg:px-8">
             <Reveal>
               <h2 className="mb-14 text-center text-4xl font-bold sm:text-5xl md:text-6xl">
                 About Me
@@ -30,7 +30,7 @@ export default function HomePage() {
         </section>
         
         <section id="projects" className="content-backdrop min-h-screen scroll-mt-16 px-4 py-20 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-0 sm:px-6 lg:px-8">
             <Reveal>
               <h2 className="mb-14 text-center text-4xl font-bold sm:text-5xl md:text-6xl">
                 Projects
@@ -41,7 +41,7 @@ export default function HomePage() {
         </section>
 
         <section id="beyond-screen" className="content-backdrop scroll-mt-16 px-4 py-20 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-0 sm:px-6 lg:px-8">
             <Reveal>
               <BeyondScreen />
             </Reveal>
@@ -49,13 +49,13 @@ export default function HomePage() {
         </section>
         
         <section id="resume" className="content-backdrop min-h-screen scroll-mt-16 px-4 py-20 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-0 sm:px-6 lg:px-8">
             <ResumeSection />
           </div>
         </section>
         
         <section id="contact" className="content-backdrop min-h-screen scroll-mt-16 px-4 py-20 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-0 sm:px-6 lg:px-8">
             <Reveal>
               <h2 className="mb-14 text-center text-4xl font-bold sm:text-5xl md:text-6xl">
                 Get In Touch

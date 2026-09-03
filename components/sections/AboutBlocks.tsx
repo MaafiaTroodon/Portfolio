@@ -71,13 +71,13 @@ export function AboutBlocks() {
               <h3 id="education-heading" className="text-3xl font-semibold sm:text-4xl">Computer Science at Dalhousie</h3>
             </div>
           </div>
-          <Card className="overflow-hidden border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-violet-950/35 p-6 shadow-xl backdrop-blur sm:p-8 lg:p-10">
+          <Card className="overflow-hidden border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-violet-950/35 p-5 shadow-xl backdrop-blur sm:p-8 lg:p-10">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-start gap-5">
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-white p-2">
                   <Image src="/photos/DalhousieLogo1.png" alt="Dalhousie University logo" fill sizes="80px" className="object-contain p-2" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-2xl font-semibold">Dalhousie University</h4>
                   <p className="mt-2 font-medium text-violet-200">Bachelor of Computer Science (Co-op)</p>
                   <p className="mt-2 flex items-center gap-2 text-sm text-slate-400"><MapPin aria-hidden="true" className="h-4 w-4" /> Halifax, Nova Scotia</p>

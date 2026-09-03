@@ -23,7 +23,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "npm run dev",
+    command: "NEXT_DIST_DIR=.next-playwright npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
   },

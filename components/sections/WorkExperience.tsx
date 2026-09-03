@@ -154,14 +154,14 @@ const earlierCustomerExperience = [
 
 export function WorkExperience() {
   return (
-    <section aria-labelledby="experience-heading" className="space-y-7">
+    <section id="work-experience" aria-labelledby="experience-heading" className="scroll-mt-24 space-y-7">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/15 text-violet-200">
           <BriefcaseBusiness aria-hidden="true" className="h-5 w-5" />
         </span>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">Professional experience</p>
-          <h3 id="experience-heading" className="text-3xl font-semibold sm:text-4xl">Work Experience</h3>
+          <h3 id="experience-heading" className="text-2xl font-semibold sm:text-4xl">Work Experience</h3>
         </div>
       </div>
 
@@ -170,7 +170,7 @@ export function WorkExperience() {
           <MediaCarousel items={portucanaPhotos} label="Portucana professional photos" variant="wide" priority />
         </div>
 
-        <div className="p-6 sm:p-8 lg:p-10">
+        <div className="p-5 sm:p-8 lg:p-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <Badge className="border border-violet-300/20 bg-violet-500/15 text-violet-100 hover:bg-violet-500/15">Featured experience</Badge>
@@ -225,7 +225,7 @@ export function WorkExperience() {
                 ) : (
                   <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-lg font-semibold text-violet-200">HT</span>
                 )}
-                <div>
+                <div className="min-w-0">
                   <CardTitle className="text-xl leading-snug">{experience.role}</CardTitle>
                   <p className="mt-1 text-sm font-medium text-violet-200">{experience.organization}</p>
                   <p className="mt-1 text-xs text-slate-400">{experience.location} · {experience.dates}</p>
@@ -280,7 +280,7 @@ export function WorkExperience() {
                     className="object-contain p-1.5"
                   />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <Badge className="border border-indigo-300/20 bg-indigo-400/10 text-indigo-100 hover:bg-indigo-400/10">
                     Technical experience
                   </Badge>
@@ -336,7 +336,7 @@ export function WorkExperience() {
                   <div className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-xl ${experience.organization === "MyWorship" ? "bg-[#080022]" : "bg-white"}`}>
                     <Image src={experience.logo} alt={experience.logoAlt} fill sizes="56px" className="object-contain p-1.5" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <CardTitle className="text-lg leading-snug">{experience.role}</CardTitle>
                     <p className="mt-1 text-sm font-medium text-violet-200">{experience.organization}</p>
                     <p className="mt-1 text-xs leading-relaxed text-slate-400">{experience.location} · {experience.dates}</p>

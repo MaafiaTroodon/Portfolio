@@ -9,10 +9,12 @@ import { useRouter } from "next/navigation";
 const commands = [
   { id: "home", label: "Home", path: "/#home", shortcut: "H" },
   { id: "about", label: "About", path: "/#about", shortcut: "A" },
+  { id: "work-experience", label: "Work Experience", path: "/#work-experience", shortcut: "W" },
   { id: "projects", label: "Projects", path: "/#projects", shortcut: "P" },
   { id: "resume", label: "Resume", path: "/#resume", shortcut: "R" },
   { id: "contact", label: "Contact", path: "/#contact", shortcut: "C" },
   { id: "portucana", label: "Portucana Case Study", path: "/experience/portucana", shortcut: "E" },
+  { id: "bullishai", label: "BullishAI Case Study", path: "/projects/bullishai", shortcut: "B" },
 ];
 
 export function CommandK() {
