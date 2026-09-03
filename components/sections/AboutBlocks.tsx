@@ -1,191 +1,125 @@
-"use client";
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
+import { Braces, Cpu, Database, GraduationCap, MapPin, Network } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Briefcase } from "lucide-react";
-import { motion } from "framer-motion";
-import { Stagger, Item } from "@/components/motion/Stagger";
+import { Card } from "@/components/ui/card";
+import Reveal from "@/components/motion/Reveal";
+import { WorkExperience } from "@/components/sections/WorkExperience";
 
-const bio = `
-Hey, I'm Malhar, a computer science student at Dalhousie University and a developer who loves turning ideas into things that actually work. I enjoy building projects that make life a little easier (or at least a bit cooler), whether that's a clean-looking website, a smart backend system, or something that just makes people go, "Wait, you built that?"
-
-I'm the kind of person who learns best by doing, breaking stuff, fixing it, and figuring out how to make it better. Outside of school, you'll probably find me debugging with music blasting, brainstorming random startup ideas with friends, or working on projects that solve real-life problems in creative ways.
-
-At heart, I love technology because it lets me build useful things that help people, not just code for the sake of code. My goal is simple: keep learning, keep building, and have fun doing it.
-`;
-
-const education = [
+const educationAreas = [
   {
-    institution: "Dalhousie University",
-    location: "Halifax, Nova Scotia, Canada",
-    degree: "Bachelor of Computer Science (Co-op)",
-    duration: "Expected Graduation: Winter 2027",
-    logo: "/photos/dalhousieLogo1.png",
-    highlights: [
-      "Coursework in Software Engineering, Cybersecurity & Defence Systems, and Game Design & Development",
-      "Core studies in Operating Systems, Networks and Communications, and Database Management",
-      "Proficiency in C, Java, Python, and SQL across multiple programming paradigms",
-      "Experienced in Spring Boot, RESTful API development, and backend architecture",
-      "Exposure to web development, cloud computing, and scalable API integration"
-    ],
-    address: "6050 University Avenue, Halifax, NS B3H 1W5",
-    description: "Dalhousie University is a leading Canadian research institution recognized for its innovation and experiential learning. The Bachelor of Computer Science program blends theory with practical experience, emphasizing modern software engineering, cybersecurity, and intelligent systems."
+    title: "Software & Backend Development",
+    description:
+      "Building structured applications through object-oriented programming, software design, and server-side development. I’ve carried those foundations into API work and Spring Boot projects alongside my degree.",
+    topics: ["Java", "JavaScript", "API Development", "Spring Boot"],
+    icon: Braces,
+    accent: "border-violet-300/15 bg-violet-400/[0.06] text-violet-200",
+  },
+  {
+    title: "Systems & Low-Level Computing",
+    description:
+      "Learning what happens below the application layer through C and C++, systems programming, memory, computer architecture, CPU concepts, and operating-system fundamentals.",
+    topics: ["C", "C++", "Systems Programming", "CPU Concepts"],
+    icon: Cpu,
+    accent: "border-sky-300/15 bg-sky-400/[0.06] text-sky-200",
+  },
+  {
+    title: "Data, Databases & Analysis",
+    description:
+      "Working with structured data through relational databases and SQL while developing the statistical and analytical foundations needed to understand and use data properly.",
+    topics: ["SQL", "Databases", "Statistics", "Data Analysis"],
+    icon: Database,
+    accent: "border-emerald-300/15 bg-emerald-400/[0.06] text-emerald-200",
+  },
+  {
+    title: "Computer Science Foundations",
+    description:
+      "The theory and design side of computing—data structures, algorithms, software engineering, networking, programming languages, and the mathematical reasoning behind computer science.",
+    topics: ["Algorithms", "Software Engineering", "Networks", "Programming Languages"],
+    icon: Network,
+    accent: "border-amber-300/15 bg-amber-400/[0.06] text-amber-100",
   },
 ];
-
-const experience = [
-  {
-    role: "Classroom Technology Support",
-    company: "Dalhousie University ITS – Halifax, NS",
-    duration: "September 2025 – Present",
-    logo: "/photos/dalhousieLogo1.png",
-    bullets: [
-      "Provide IT and AV support across classrooms and lecture halls, including troubleshooting computers, touchscreens, microphones, and networked systems.",
-      "Deliver quick and reliable solutions to ensure a smooth teaching experience for faculty and students.",
-      "Document procedures, track assets, and recommend workflow improvements for long-term efficiency.",
-      "Strengthened teamwork, customer service, and communication skills through on-site and hybrid collaboration."
-    ],
-  },
-  {
-    role: "Community Safety Team (CST)",
-    company: "Dalhousie Residence Services – Halifax, NS",
-    duration: "September 2025 – Present",
-    logo: "/photos/dalhousieLogo1.png",
-    bullets: [
-      "Promote a safe, inclusive, and welcoming residence environment for students living on campus.",
-      "Provide first aid and respond to incidents while maintaining adherence to safety and community protocols.",
-      "Collaborate with Residence Life staff to resolve concerns, support students, and foster positive community engagement."
-    ],
-  },
-  {
-    role: "Backend Team Lead Intern",
-    company: "Worship Streaming Platform – Remote",
-    duration: "May 2025 – Present",
-    logo: "/photos/worshiplogo.png",
-    bullets: [
-      "Lead backend development for a cloud-based streaming platform designed to connect churches with their communities.",
-      "Work in agile sprints to design and maintain scalable APIs using Java, Spring Boot, MongoDB, and AWS.",
-      "Implemented Power BI dashboards to visualize user engagement and monitor system performance.",
-      "Collaborate with cross-functional teams to ensure reliability, scalability, and smooth feature delivery."
-    ],
-  },
-];
-
 
 export function AboutBlocks() {
   return (
-    <div className="space-y-12">
-      {/* Bio */}
-      <div>
-        <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center leading-relaxed">
-          {bio}
-        </p>
-      </div>
+    <div className="space-y-20">
+      <Reveal>
+        <section aria-labelledby="about-story-heading" className="grid items-center gap-9 lg:grid-cols-[0.68fr_1.32fr] lg:gap-14">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-violet-300/25 bg-slate-950 shadow-2xl shadow-violet-950/40">
+            <Image src="/photos/about/malhar-professional-headshot.png" alt="Professional portrait of Malhar Mahajan." fill priority sizes="(max-width: 1024px) 90vw, 32vw" className="object-cover" />
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
+          </div>
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Hey, I’m Malhar</p>
+            <h3 id="about-story-heading" className="mt-3 text-balance text-3xl font-semibold leading-tight sm:text-4xl">I like building things that have to work in the real world.</h3>
+            <div className="mt-7 space-y-5 text-base leading-8 text-slate-300 sm:text-[1.05rem]">
+              <p>I’m a Computer Science Co-op student at Dalhousie University in Halifax, and over the last few years my experience has taken me through much more than one corner of technology. I’ve built full-stack applications and backend services, supported technology in live university classrooms, worked with students and faculty through ITS, and helped a real business rethink internal processes through Microsoft 365 and the Power Platform.</p>
+              <p>What interests me most is understanding the whole system around a problem—not only the code. During my co-op at Portucana Construction Services, I worked directly with business leadership to understand how employees and managers handled time off, approvals, communication, and company information. I then helped turn those workflows into practical systems using Power Apps, Power Automate, SharePoint, and Microsoft 365. That experience changed how I think about software: a solution is only useful when it fits the people, information, and decisions around it.</p>
+              <p>Outside professional work, I keep building because I genuinely enjoy figuring things out. BullishAI became my largest independent project and a place to explore full-stack architecture, financial data, APIs, databases, analytics, and AI-assisted workflows. Other projects have taken me into music streaming, augmented reality, Android development, 3D web experiences, and game development.</p>
+              <p>I don’t see myself as belonging to only one narrow title or technology stack. I enjoy learning how systems fit together and creating things people can actually use—whether that means writing software, designing an automation, debugging a classroom system, working with data, or helping someone solve a technical problem.</p>
+            </div>
+          </div>
+        </section>
+      </Reveal>
 
-      {/* Education */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-          <GraduationCap className="h-6 w-6" />
-          Education
-        </h2>
+      <Reveal>
+        <section aria-labelledby="education-heading" className="space-y-6">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/15 text-violet-200"><GraduationCap aria-hidden="true" className="h-5 w-5" /></span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">Education</p>
+              <h3 id="education-heading" className="text-3xl font-semibold sm:text-4xl">Computer Science at Dalhousie</h3>
+            </div>
+          </div>
+          <Card className="overflow-hidden border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-violet-950/35 p-6 shadow-xl backdrop-blur sm:p-8 lg:p-10">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex items-start gap-5">
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-white p-2">
+                  <Image src="/photos/DalhousieLogo1.png" alt="Dalhousie University logo" fill sizes="80px" className="object-contain p-2" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-semibold">Dalhousie University</h4>
+                  <p className="mt-2 font-medium text-violet-200">Bachelor of Computer Science (Co-op)</p>
+                  <p className="mt-2 flex items-center gap-2 text-sm text-slate-400"><MapPin aria-hidden="true" className="h-4 w-4" /> Halifax, Nova Scotia</p>
+                </div>
+              </div>
+              <Badge className="w-fit border border-violet-300/20 bg-violet-500/15 px-3 py-1.5 text-violet-100 hover:bg-violet-500/15">Expected May 2027</Badge>
+            </div>
 
-        <Stagger className="grid gap-6">
-          {education.map((edu, index) => (
-            <Item key={index}>
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
-              >
-                <Card className="hover:shadow-2xl transition-all duration-500 hover:border-primary/50 border-2">
-                <CardHeader className="space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      {edu.logo && (
-                        <img 
-                          src={edu.logo} 
-                          alt={`${edu.institution} Logo`}
-                          className="h-16 w-16 object-contain"
-                        />
-                      )}
-                      <div>
-                        <CardTitle className="text-2xl mb-2">{edu.institution}</CardTitle>
-                        <CardDescription className="text-sm">{edu.location}</CardDescription>
-                      </div>
-                    </div>
-                    <Badge variant="secondary" className="text-sm">{edu.duration}</Badge>
-                  </div>
-                  <CardDescription className="text-base font-semibold text-primary">
-                    {edu.degree}
-                  </CardDescription>
-                  {edu.address && (
-                    <p className="text-xs text-muted-foreground">{edu.address}</p>
-                  )}
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground">{edu.description}</p>
-                  <div>
-                    <p className="text-sm font-semibold mb-2">Highlights:</p>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      {edu.highlights?.map((highlight, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
-              </motion.div>
-            </Item>
-          ))}
-        </Stagger>
-      </div>
+            <div className="mt-7 max-w-5xl space-y-4 text-sm leading-7 text-slate-300 sm:text-base">
+              <p>My Computer Science degree at Dalhousie has taken me from programming fundamentals into software engineering, backend development, databases, algorithms, systems, networking, statistics, and lower-level computing. What I’ve enjoyed most is seeing how those areas connect—from understanding what happens closer to the hardware to building applications and APIs on top of it.</p>
+              <p>The breadth of the degree has made computer science feel less like one narrow path and more like learning the layers of a complete system: how programs are designed, how data is structured, how computers execute work, and how software communicates.</p>
+            </div>
 
-      {/* Work Experience */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-          <Briefcase className="h-6 w-6" />
-          Work Experience
-        </h2>
+            <div className="mt-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">What I’ve studied</p>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                {educationAreas.map((area) => {
+                  const Icon = area.icon;
+                  return (
+                    <article key={area.title} className={`rounded-2xl border p-5 ${area.accent}`}>
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                      <h4 className="mt-4 text-lg font-semibold text-slate-100">{area.title}</h4>
+                      <p className="mt-2 text-sm leading-6 text-slate-300">{area.description}</p>
+                      <p className="mt-4 text-xs leading-6 text-slate-400">{area.topics.join(" · ")}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
 
-        <Stagger className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-          {experience.map((exp, index) => (
-            <Item key={index} delay={index * 0.05}>
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
-              >
-                <Card className="hover:shadow-2xl transition-all duration-500 hover:border-primary/50 border-2 h-full flex flex-col">
-                  <CardHeader className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      {exp.logo && (
-                        <img 
-                          src={exp.logo} 
-                          alt={`${exp.company} Logo`}
-                          className="h-12 w-12 object-contain flex-shrink-0"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <CardTitle className="text-lg mb-1">{exp.role}</CardTitle>
-                        <CardDescription className="text-sm">{exp.company}</CardDescription>
-                      </div>
-                    </div>
-                    <Badge variant="secondary" className="w-fit text-xs">{exp.duration}</Badge>
-                  </CardHeader>
-                  <CardContent className="flex-1">
-                    <ul className="text-sm space-y-2 list-disc list-inside">
-                      {exp.bullets?.map((bullet, i) => (
-                        <li key={i} className="text-muted-foreground">{bullet}</li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Item>
-          ))}
-        </Stagger>
-      </div>
+            <div className="mt-8 border-t border-white/10 pt-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">Learning in Practice</p>
+              <p className="mt-3 max-w-5xl text-sm leading-7 text-slate-300 sm:text-base">
+                One of the reasons I chose the co-op path was to see what computer science looks like outside assignments and course projects. Working professionally while completing the degree has created a useful feedback loop: concepts from school show up at work, and problems from work make the technical material at school easier to understand in context.
+              </p>
+            </div>
+          </Card>
+        </section>
+      </Reveal>
+
+      <Reveal><WorkExperience /></Reveal>
+
     </div>
   );
 }

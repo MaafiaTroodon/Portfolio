@@ -7,11 +7,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const commands = [
-  { id: "home", label: "Home", path: "/", shortcut: "H" },
-  { id: "about", label: "About", path: "/about", shortcut: "A" },
-  { id: "projects", label: "Projects", path: "/projects", shortcut: "P" },
-  { id: "resume", label: "Resume", path: "/resume", shortcut: "R" },
-  { id: "contact", label: "Contact", path: "/contact", shortcut: "C" },
+  { id: "home", label: "Home", path: "/#home", shortcut: "H" },
+  { id: "about", label: "About", path: "/#about", shortcut: "A" },
+  { id: "projects", label: "Projects", path: "/#projects", shortcut: "P" },
+  { id: "resume", label: "Resume", path: "/#resume", shortcut: "R" },
+  { id: "contact", label: "Contact", path: "/#contact", shortcut: "C" },
+  { id: "portucana", label: "Portucana Case Study", path: "/experience/portucana", shortcut: "E" },
 ];
 
 export function CommandK() {
@@ -113,4 +114,3 @@ export function CommandK() {
     </div>
   );
 }
-

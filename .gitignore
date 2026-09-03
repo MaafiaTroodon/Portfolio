@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/playwright-report/
+/test-results/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -29,6 +31,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# local-only source media containing private company information
+/private-assets/
+
 # vercel
 .vercel
 
@@ -45,4 +50,3 @@ next-env.d.ts
 
 # OS
 Thumbs.db
-

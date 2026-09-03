@@ -1,78 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  interface Window { VANTA: any; THREE: any; }
-}
+type VantaEffect = { destroy: () => void };
+type RingsFactory = (options: Record<string, unknown>) => VantaEffect;
 
 export function VantaRings() {
   const containerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vantaEffect = useRef<any>(null);
-  const [isReady, setIsReady] = useState(false);
+  const vantaEffect = useRef<VantaEffect | null>(null);
 
-  // Load scripts
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    // Load THREE.js
-    if (!window.THREE) {
-      const threeScript = document.createElement("script");
-      threeScript.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js";
-      threeScript.async = true;
-      threeScript.onload = () => {
-        // Load Vanta after THREE is ready
-        const vantaScript = document.createElement("script");
-        vantaScript.src = "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.rings.min.js";
-        vantaScript.async = true;
-        vantaScript.onload = () => {
-          setIsReady(true);
-        };
-        document.head.appendChild(vantaScript);
-      };
-      document.head.appendChild(threeScript);
-    } else {
-      setIsReady(true);
-    }
-  }, []);
-
-  // Initialize Vanta when ready
-  useEffect(() => {
-    if (!isReady || !containerRef.current || !window.VANTA || !window.THREE) return;
-
-    const initVanta = () => {
-      try {
-        vantaEffect.current = window.VANTA.RINGS({
+    Promise.all([
+      import("three"),
+      import("vanta/dist/vanta.rings.min.js"),
+    ])
+      .then(([THREE, ringsModule]) => {
+        if (cancelled || !containerRef.current) return;
+        const createRings = ringsModule.default as unknown as RingsFactory;
+        vantaEffect.current = createRings({
           el: containerRef.current,
-          THREE: window.THREE,
+          THREE,
           mouseControls: true,
           touchControls: true,
           gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scaleMobile: 1.00,
-          color: 0x1e40af, // Deep royal blue
-          backgroundColor: 0x0a0f1c, // Very dark navy
-          color2: 0x3b82f6, // Softer blue
-          minDistance: 140.00,
-          rotationX: 0.30,
-          scale: 0.7, // Make it smaller and more subtle
+          minHeight: 200,
+          minWidth: 200,
+          scaleMobile: 1,
+          color: 0x1e40af,
+          backgroundColor: 0x0a0f1c,
+          color2: 0x3b82f6,
+          minDistance: 140,
+          rotationX: 0.3,
+          scale: 0.7,
         });
-      } catch (error) {
-        console.error("Vanta error:", error);
-      }
-    };
-
-    initVanta();
+      })
+      .catch((error) => console.error("Vanta error:", error));
 
     return () => {
-      if (vantaEffect.current && typeof vantaEffect.current.destroy === "function") {
-        vantaEffect.current.destroy();
-      }
+      cancelled = true;
+      vantaEffect.current?.destroy();
+      vantaEffect.current = null;
     };
-  }, [isReady]);
+  }, []);
 
-  return <div ref={containerRef} className="fixed inset-0 -z-10 pointer-events-none" />;
+  return <div ref={containerRef} className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true" />;
 }

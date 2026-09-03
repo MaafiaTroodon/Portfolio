@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">© 2025 Malhar Datta Mahajan. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2026 Malhar Datta Mahajan. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a
               href="mailto:ml575444@dal.ca"
@@ -41,4 +41,3 @@ export function Footer() {
     </footer>
   );
 }
-

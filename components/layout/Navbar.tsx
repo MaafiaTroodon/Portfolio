@@ -6,19 +6,22 @@ import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Tooltip } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#resume", label: "Resume" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#home", section: "home", label: "Home" },
+  { href: "/#about", section: "about", label: "About" },
+  { href: "/#projects", section: "projects", label: "Projects" },
+  { href: "/#resume", section: "resume", label: "Resume" },
+  { href: "/#contact", section: "contact", label: "Contact" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,11 +45,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
   };
@@ -64,15 +66,15 @@ export function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => handleNavClick(e, "#home")}
+            <Link
+              href="/#home"
+              onClick={(e) => handleNavClick(e, "home")}
               className="group text-xl font-bold transition-all duration-300 ease-out"
             >
               <span style={{ color: '#f4e4c2' }}>
                 Malhar
               </span>
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6">
@@ -81,7 +83,7 @@ export function Navbar() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                    onClick={(e) => handleNavClick(e, link.section)}
                     className="coolBeans"
                   >
                     {link.label}
@@ -144,7 +146,7 @@ export function Navbar() {
               </SheetHeader>
               <div className="flex flex-col space-y-2 mt-8">
                 {navLinks.map((link, index) => {
-                  const isActive = activeSection === link.href.substring(1);
+                  const isActive = pathname === "/" && activeSection === link.section;
                   return (
                     <motion.div
                       key={link.href}
@@ -154,7 +156,7 @@ export function Navbar() {
                     >
                       <a
                         href={link.href}
-                        onClick={(e) => handleNavClick(e, link.href)}
+                        onClick={(e) => handleNavClick(e, link.section)}
                         className={cn(
                           "block px-4 py-3 rounded-lg text-lg font-medium transition-all duration-300",
                           isActive

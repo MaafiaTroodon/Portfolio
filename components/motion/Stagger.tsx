@@ -1,27 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function Stagger({ children, className }: { children: React.ReactNode; className?: string }) {
-  const [prefersReduced, setPrefersReduced] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReduced(mediaQuery.matches);
-    
-    const handler = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  if (prefersReduced) return <div className={className}>{children}</div>;
+  const prefersReduced = useReducedMotion();
 
   return (
     <motion.div
       className={className}
-      initial="hidden"
-      whileInView="show"
+      initial={prefersReduced ? false : "hidden"}
+      whileInView={prefersReduced ? undefined : "show"}
       viewport={{ once: true, amount: 0.15 }}
       variants={{
         hidden: {},
@@ -42,21 +30,11 @@ export function Item({
   y?: number; 
   delay?: number; 
 }) {
-  const [prefersReduced, setPrefersReduced] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReduced(mediaQuery.matches);
-    
-    const handler = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  if (prefersReduced) return <>{children}</>;
+  const prefersReduced = useReducedMotion();
 
   return (
     <motion.div
+      initial={prefersReduced ? false : undefined}
       variants={{
         hidden: { opacity: 0, y },
         show: { 
@@ -74,4 +52,3 @@ export function Item({
     </motion.div>
   );
 }
-

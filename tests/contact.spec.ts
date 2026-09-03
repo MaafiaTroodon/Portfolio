@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Contact Form", () => {
-  test("should load contact page", async ({ page }) => {
-    await page.goto("/contact");
-    await expect(page.locator("h1")).toContainText("Get In Touch");
+  test("should load contact section", async ({ page }) => {
+    await page.goto("/#contact");
+    await expect(page.getByRole("heading", { name: "Get In Touch" })).toBeVisible();
   });
 
   test("should submit contact form", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/#contact");
     
     // Fill form
     await page.fill('input[name="name"]', "Test User");
@@ -32,11 +32,10 @@ test.describe("Contact Form", () => {
   });
 
   test("should validate required fields", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/#contact");
     await page.click('button[type="submit"]');
     
     // Check for validation errors
     await expect(page.locator("text=Name must be at least")).toBeVisible();
   });
 });
-

@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: __dirname,
   images: {
-    domains: ['www.dal.ca'],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {
@@ -11,4 +11,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
