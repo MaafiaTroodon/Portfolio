@@ -4,7 +4,20 @@ const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || '.next',
   outputFileTracingRoot: __dirname,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/photos/optimized/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ]
   },
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],

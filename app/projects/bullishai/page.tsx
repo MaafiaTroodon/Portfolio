@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description:
       "A technical case study covering BullishAI's market-data fallbacks, AI context pipeline, portfolio engine, PostgreSQL state, and background jobs.",
     type: "article",
-    images: ["/photos/bullishai/BullishAi%20home.png"],
+    images: ["/photos/optimized/bullishai-home.webp"],
   },
 };
 

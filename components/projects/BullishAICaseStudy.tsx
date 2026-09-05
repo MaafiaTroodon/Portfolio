@@ -127,11 +127,17 @@ function CaseStudyCarousel({
 
   useEffect(() => {
     if (items.length < 2) return;
-    const timer = window.setInterval(showNext, 3000);
-    return () => window.clearInterval(timer);
-  }, [items.length, showNext]);
+    const timer = window.setTimeout(showNext, 3000);
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, items.length, showNext]);
 
   const activeItem = items[activeIndex];
+  const imageSizes = "(max-width: 1024px) 94vw, 78vw";
+  const nearbyItems = items.length > 1
+    ? [...new Set([(activeIndex + 1) % items.length, (activeIndex - 1 + items.length) % items.length])]
+        .filter((index) => index !== activeIndex)
+        .map((index) => items[index])
+    : [];
 
   return (
     <section
@@ -164,7 +170,7 @@ function CaseStudyCarousel({
       className="relative overflow-hidden rounded-[1.75rem] border border-violet-300/20 bg-slate-950 shadow-2xl shadow-violet-950/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
     >
       <div className="relative h-[22rem] w-full sm:h-auto sm:aspect-[16/9] lg:min-h-[34rem]">
-        <Image src={activeItem.src} alt="" aria-hidden="true" fill sizes="100vw" className="scale-110 object-cover opacity-25 blur-3xl" />
+        <Image src={activeItem.src} alt="" aria-hidden="true" fill sizes={imageSizes} className="scale-110 object-cover opacity-25 blur-3xl" />
         <div className="absolute inset-0 bg-slate-950/25" />
         <button type="button" onClick={() => onOpen(activeItem)} aria-label={`Enlarge ${activeItem.title}`} className="absolute inset-4 overflow-hidden rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 sm:inset-6">
           <Image
@@ -173,10 +179,15 @@ function CaseStudyCarousel({
             alt={activeItem.alt}
             fill
             priority={priority && activeIndex === 0}
-            sizes="(max-width: 1024px) 94vw, 78vw"
+            sizes={imageSizes}
             className="object-contain"
           />
         </button>
+        <div aria-hidden="true" data-carousel-preload className="pointer-events-none absolute inset-0 opacity-0">
+          {nearbyItems.map((item) => (
+            <Image key={`preload-${item.src}`} src={item.src} alt="" fill sizes={imageSizes} className="object-contain" />
+          ))}
+        </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent px-5 pb-14 pt-24 sm:px-8">
           <p className="text-sm font-semibold text-white sm:text-base">{activeItem.title}</p>
           <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-200 sm:text-sm">{activeItem.caption}</p>

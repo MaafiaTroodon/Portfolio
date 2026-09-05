@@ -46,7 +46,7 @@ export function AboutBlocks() {
       <Reveal>
         <section aria-labelledby="about-story-heading" className="grid items-center gap-9 lg:grid-cols-[0.68fr_1.32fr] lg:gap-14">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-violet-300/25 bg-slate-950 shadow-2xl shadow-violet-950/40">
-            <Image src="/photos/about/malhar-professional-headshot.png" alt="Professional portrait of Malhar Mahajan." fill priority sizes="(max-width: 1024px) 90vw, 32vw" className="object-cover" />
+            <Image src="/photos/optimized/professional-headshot.webp" alt="Professional portrait of Malhar Mahajan." fill priority sizes="(max-width: 1024px) 90vw, 32vw" className="object-cover" />
             <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
           </div>
           <div className="max-w-3xl">

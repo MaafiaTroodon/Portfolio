@@ -21,7 +21,7 @@ const projects = [
     liveUrl: "https://flexbeatsx.netlify.app",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/FlexBeats",
-    image: "/photos/flexbeats.png",
+    image: "/photos/optimized/project-flexbeats.webp",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const projects = [
     liveUrl: "https://maafiatroodon.itch.io/urban-swat-platformer",
     liveLabel: "Play on itch.io",
     githubUrl: "https://github.com/MaafiaTroodon/UrbanSWAT-Platformer",
-    image: "/photos/game%20scene%201.png",
+    image: "/photos/optimized/project-game-scene.webp",
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const projects = [
     liveUrl: "https://malhar999clone.netlify.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/Apple_Website_Clone",
-    image: "/photos/appleClone.png",
+    image: "/photos/optimized/project-apple-clone.webp",
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ const projects = [
     liveUrl: "https://chem-ar-production.up.railway.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/chem-ar",
-    image: "/photos/chemar.png",
+    image: "/photos/optimized/project-chemar.webp",
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ const projects = [
     liveUrl: null,
     liveLabel: null,
     githubUrl: "https://github.com/MaafiaTroodon/QuickTutor",
-    image: "/photos/storedetails.png",
+    image: "/photos/optimized/project-store-details.webp",
   },
   {
     id: 6,
@@ -81,7 +81,7 @@ const projects = [
     liveUrl: "https://fancy-lollipop-fcb73b.netlify.app/",
     liveLabel: "Live Demo",
     githubUrl: "https://github.com/MaafiaTroodon/interactive-portfolio",
-    image: "/photos/interactiveportfolio.png",
+    image: "/photos/optimized/project-interactive-portfolio.webp",
   },
 ];
 

@@ -53,6 +53,12 @@ export function MediaCarousel({
   if (!items.length) return null;
 
   const activeItem = items[activeIndex];
+  const imageSizes = variant !== "default" ? "(max-width: 768px) 100vw, 90vw" : "(max-width: 1024px) 100vw, 42vw";
+  const nearbyItems = items.length > 1
+    ? [...new Set([(activeIndex + 1) % items.length, (activeIndex - 1 + items.length) % items.length])]
+        .filter((index) => index !== activeIndex)
+        .map((index) => items[index])
+    : [];
 
   return (
     <section
@@ -99,7 +105,7 @@ export function MediaCarousel({
                   alt=""
                   aria-hidden="true"
                   fill
-                  sizes="100vw"
+                  sizes={imageSizes}
                   className="scale-110 object-cover opacity-35 blur-2xl"
                   style={{ objectPosition: activeItem.objectPosition ?? "center" }}
                 />
@@ -111,7 +117,7 @@ export function MediaCarousel({
               alt={activeItem.alt}
               fill
               priority={priority && activeIndex === 0}
-              sizes={variant !== "default" ? "(max-width: 768px) 100vw, 90vw" : "(max-width: 1024px) 100vw, 42vw"}
+              sizes={imageSizes}
               className={variant !== "default" ? "object-contain" : "object-cover"}
               style={{ objectPosition: activeItem.objectPosition ?? "center" }}
             />
@@ -121,6 +127,19 @@ export function MediaCarousel({
             </div>
           </motion.div>
         </AnimatePresence>
+
+        <div aria-hidden="true" data-carousel-preload className="pointer-events-none absolute inset-0 opacity-0">
+          {nearbyItems.map((item) => (
+            <Image
+              key={`preload-${item.src}`}
+              src={item.src}
+              alt=""
+              fill
+              sizes={imageSizes}
+              className={variant !== "default" ? "object-contain" : "object-cover"}
+            />
+          ))}
+        </div>
 
         {items.length > 1 && (
           <>

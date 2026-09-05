@@ -33,21 +33,21 @@ export type CaseStudyStage = {
 
 export const portucanaPhotos: MediaItem[] = [
   {
-    src: "/photos/Portucana/portucana-construction-site.jpg",
+    src: "/photos/optimized/portucana-construction.webp",
     alt: "Malhar Mahajan holding a co-op recognition certificate with members of the Portucana team.",
     title: "Co-op Recognition",
     caption: "Recognition at the completion of a hands-on systems and data co-op.",
     objectPosition: "center 38%",
   },
   {
-    src: "/photos/Portucana/portucana-recognition-team-01.jpg",
+    src: "/photos/optimized/portucana-team-01.webp",
     alt: "Malhar Mahajan visiting a Portucana construction project in Halifax while wearing site safety equipment.",
     title: "Inside the Industry",
     caption: "Connecting internal technology work with the company’s real operating environment.",
     objectPosition: "center 48%",
   },
   {
-    src: "/photos/Portucana/%20portucana-recognition-team-02.JPG",
+    src: "/photos/optimized/portucana-team-02.webp",
     alt: "Malhar Mahajan with Portucana team members during co-op recognition.",
     title: "Portucana Team",
     caption: "Celebrating the people, collaboration, and practical work behind the co-op.",
@@ -57,19 +57,19 @@ export const portucanaPhotos: MediaItem[] = [
 
 export const myWorshipMedia: MediaItem[] = [
   {
-    src: "/photos/WorshipMobile.jpeg",
+    src: "/photos/optimized/worship-mobile.webp",
     alt: "Mobile MyWorship dashboard showing notifications, member activity, and upcoming church events.",
     title: "MyWorship Platform",
     caption: "The mobile experience for church activity, notifications, and upcoming events.",
   },
   {
-    src: "/photos/WorshipDashboard.jpeg",
+    src: "/photos/optimized/worship-dashboard.webp",
     alt: "MyWorship administrator dashboard showing engagement analytics, quick actions, notifications, and transaction records.",
     title: "Admin Dashboard",
     caption: "An administrative workspace for engagement, events, members, and operational activity.",
   },
   {
-    src: "/photos/WorshipCertificate.jpeg",
+    src: "/photos/optimized/worship-certificate.webp",
     alt: "MyWorship appreciation letter recognizing Malhar Mahajan's backend support and collaboration.",
     title: "Recognition & Completion",
     caption: "Recognition for backend support, product collaboration, and contributions to the team.",
@@ -78,19 +78,19 @@ export const myWorshipMedia: MediaItem[] = [
 
 export const tennisPhotos: MediaItem[] = [
   {
-    src: "/photos/about/malhar-tennis-match-01.png",
+    src: "/photos/optimized/tennis-match-01.webp",
     alt: "Malhar Mahajan during a tennis match in Halifax.",
     title: "Match Day",
     caption: "A day on court in Halifax.",
   },
   {
-    src: "/photos/about/malhar-tennis-match-02.png",
+    src: "/photos/optimized/tennis-match-02.webp",
     alt: "Malhar Mahajan on court during a competitive tennis match.",
     title: "On Court",
     caption: "Still finding time to play during university.",
   },
   {
-    src: "/photos/about/malhar-tennis-match-03.JPG",
+    src: "/photos/optimized/tennis-match-03.webp",
     alt: "Malhar Mahajan standing with another player and their rackets on an indoor tennis court.",
     title: "Still Playing",
     caption: "A sport that has stayed with me since childhood.",
@@ -99,43 +99,43 @@ export const tennisPhotos: MediaItem[] = [
 
 export const bullishAiMedia: MediaItem[] = [
   {
-    src: "/photos/bullishai/BullishAi%20home.png",
+    src: "/photos/optimized/bullishai-home.webp",
     alt: "BullishAI home page with a live market ticker, product introduction, dashboard launch, and AI prompt.",
     title: "BullishAI Home",
     caption: "The main entry point for real-time portfolio tracking and AI-driven market insights.",
   },
   {
-    src: "/photos/bullishai/Ai%20powered.png",
+    src: "/photos/optimized/bullishai-ai-powered.webp",
     alt: "BullishAI market signals dashboard with a market pulse ring, AI confidence meters, live trade radar, weather forecast, and sector rotation.",
     title: "AI Market Signals",
     caption: "Live market context, confidence readings, trade signals, and sector movement in one view.",
   },
   {
-    src: "/photos/bullishai/AI%20powered%20analysis.png",
+    src: "/photos/optimized/bullishai-analysis.webp",
     alt: "BullishAI analysis hub with quick insights, recommended stocks, technical analysis, research, and stock discovery tools.",
     title: "AI-Powered Analysis",
     caption: "Focused AI tools for research, recommendations, analysis, and stock discovery.",
   },
   {
-    src: "/photos/bullishai/Market%20heatmap.png",
+    src: "/photos/optimized/bullishai-heatmap.webp",
     alt: "BullishAI market heatmap showing the performance of companies grouped across major market sectors.",
     title: "Market Heatmap",
     caption: "A visual overview of market movement across companies and sectors.",
   },
   {
-    src: "/photos/bullishai/Portfolio.png",
+    src: "/photos/optimized/bullishai-portfolio.webp",
     alt: "BullishAI portfolio screen showing total value, returns, holdings, timeframe controls, and a historical value chart.",
     title: "Portfolio Analytics",
     caption: "Holdings, returns, cost basis, and historical portfolio performance in one dashboard.",
   },
   {
-    src: "/photos/bullishai/Usa%20Can%20market.png",
+    src: "/photos/optimized/bullishai-usa-canada.webp",
     alt: "BullishAI live market preview with USA and Canada controls, stock charts, current pricing, and market stories.",
     title: "USA & Canada Markets",
     caption: "Interactive market views combining stock charts, current prices, and relevant news.",
   },
   {
-    src: "/photos/bullishai/WIshlist.png",
+    src: "/photos/optimized/bullishai-watchlist.webp",
     alt: "BullishAI watchlist showing tracked stock symbols, prices, daily changes, actions, and a selected-stock chart.",
     title: "Stock Watchlist",
     caption: "A personalized watchlist for monitoring selected stocks and their latest movement.",

@@ -187,6 +187,18 @@ test.describe("Professional portfolio", () => {
     await expect(carousel.getByAltText(/visiting a Portucana construction project/)).toBeVisible();
   });
 
+  test("warms neighboring optimized work images before the slideshow advances", async ({ page }) => {
+    await page.goto("/#work-experience");
+    const carousel = page.getByRole("region", { name: "Portucana professional photos" });
+    await carousel.scrollIntoViewIfNeeded();
+    const preloadImages = carousel.locator("[data-carousel-preload] img");
+    await expect(preloadImages).toHaveCount(2);
+    await expect.poll(async () => preloadImages.evaluateAll((images) => images.every((image) => {
+      const element = image as HTMLImageElement;
+      return element.complete && element.naturalWidth > 0 && element.currentSrc.includes("/photos/optimized/");
+    })), { timeout: 10000 }).toBe(true);
+  });
+
   test("runs the Portucana slideshow continuously every three seconds, including while hovered", async ({ page }) => {
     await page.goto("/#about");
     const carousel = page.getByRole("region", { name: "Portucana professional photos" });
